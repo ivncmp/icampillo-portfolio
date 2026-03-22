@@ -1,215 +1,258 @@
 ---
 ---
 
-<section id="main-hero">
+<section id="hero">
 	<div class="container">
-		<div class="hero-content">
-			<div class="logo-container">
-				<img src="/logo.png" alt="Iván Campillo" class="logo" />
-			</div>
-			
-			<div class="hero-text">
-				<h1 class="hero-title">
-					<span class="name">IVÁN CAMPILLO</span>
-					<span class="separator">=</span>
-				</h1>
+		<div class="hero-grid">
+			<!-- Left: Info -->
+			<div class="hero-left">
+				<h1 class="pixel-font hero-title">IVÁN CAMPILLO</h1>
 				
-				<div class="rotating-text">
-					<span class="role">Software Engineer</span>
-					<span class="role">Cloud Architecture</span>
-					<span class="role">Web3 & Blockchain</span>
-					<span class="role">Full Stack Development</span>
+				<div class="role-list">
+					<div class="role-item">
+						<span class="bullet">→</span> Software Engineer
+					</div>
+					<div class="role-item">
+						<span class="bullet">→</span> Cloud Architecture
+					</div>
+					<div class="role-item">
+						<span class="bullet">→</span> Full Stack Development
+					</div>
+				</div>
+
+				<div class="social-links">
+					<a href="https://www.linkedin.com/in/ivancampillo/" target="_blank" rel="noopener noreferrer" class="social-btn">
+						<i class="fab fa-linkedin"></i>
+					</a>
+					<a href="https://github.com/ivncmp" target="_blank" rel="noopener noreferrer" class="social-btn">
+						<i class="fab fa-github"></i>
+					</a>
+					<a href="mailto:hello@icampillo.com" class="social-btn">
+						<i class="fas fa-envelope"></i>
+					</a>
 				</div>
 			</div>
 
-			<div class="social-links">
-				<a href="mailto:hello@icampillo.com" aria-label="Email" class="social-icon">
-					<i class="fas fa-envelope"></i>
-				</a>
-				<a href="https://www.linkedin.com/in/ivancampillo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon">
-					<i class="fab fa-linkedin"></i>
-				</a>
-				<a href="https://github.com/ivncmp" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-icon">
-					<i class="fab fa-github"></i>
-				</a>
+			<!-- Right: Avatar + Description -->
+			<div class="hero-right">
+				<div class="avatar-container">
+					<div class="avatar-glow"></div>
+					<img src="/avatar.png" alt="Iván Campillo Avatar" class="avatar" />
+				</div>
+				
+				<div class="description-box">
+					<p>
+						Cloud & Blockchain Architect con más de 20 años de experiencia internacional 
+						liderando equipos, desarrollando infraestructuras escalables y creando soluciones 
+						tecnológicas innovadoras en España, UK y Dubái.
+					</p>
+					<a href="#contact" class="cta-btn">
+						<span>CONTÁCTAME</span>
+						<i class="fas fa-arrow-right"></i>
+					</a>
+				</div>
 			</div>
-
-			<p class="hero-description">
-				Cloud & Blockchain Architect con más de 20 años de experiencia internacional 
-				liderando equipos, desarrollando infraestructuras escalables y creando soluciones 
-				tecnológicas innovadoras en España, UK y Dubái.
-			</p>
-
-			<a href="mailto:hello@icampillo.com" class="cta-button">
-				¿Hablamos?
-			</a>
 		</div>
 	</div>
 </section>
 
 <style>
-	#main-hero {
+	#hero {
 		min-height: 100vh;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		color: white;
-		text-align: center;
+		background: var(--bg-dark);
 		position: relative;
 		overflow: hidden;
 	}
 
-	#main-hero::before {
+	#hero::before {
 		content: '';
 		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: 
-			radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-			radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
-		pointer-events: none;
+		top: -50%;
+		right: -20%;
+		width: 800px;
+		height: 800px;
+		background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
+		border-radius: 50%;
+		animation: float 20s ease-in-out infinite;
 	}
 
-	.hero-content {
+	#hero::after {
+		content: '';
+		position: absolute;
+		bottom: -30%;
+		left: -10%;
+		width: 600px;
+		height: 600px;
+		background: radial-gradient(circle, rgba(16, 185, 129, 0.1), transparent 70%);
+		border-radius: 50%;
+		animation: float 15s ease-in-out infinite reverse;
+	}
+
+	@keyframes float {
+		0%, 100% { transform: translateY(0) scale(1); }
+		50% { transform: translateY(-50px) scale(1.05); }
+	}
+
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 4rem;
+		align-items: center;
 		position: relative;
 		z-index: 1;
-		animation: fadeInUp 1s ease;
-	}
-
-	.logo-container {
-		margin-bottom: 2rem;
-	}
-
-	.logo {
-		max-width: 400px;
-		width: 100%;
-		height: auto;
-		filter: brightness(0) invert(1);
 	}
 
 	.hero-title {
-		font-size: 3.5rem;
-		font-weight: 700;
-		margin-bottom: 1rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.5rem;
-	}
-
-	.separator {
-		font-size: 2rem;
-		opacity: 0.5;
-	}
-
-	.rotating-text {
-		display: flex;
-		flex-direction: column;
-		min-height: 80px;
-		font-size: 1.5rem;
-		font-weight: 400;
+		font-size: 4rem;
+		letter-spacing: 4px;
 		margin-bottom: 2rem;
-		opacity: 0.9;
-		position: relative;
+		color: var(--text-primary);
+		text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
 	}
 
-	.role {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		opacity: 0;
-		animation: rotateText 16s infinite;
+	.role-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin-bottom: 2.5rem;
 	}
 
-	.role:nth-child(1) { animation-delay: 0s; }
-	.role:nth-child(2) { animation-delay: 4s; }
-	.role:nth-child(3) { animation-delay: 8s; }
-	.role:nth-child(4) { animation-delay: 12s; }
+	.role-item {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		font-size: 1.2rem;
+		font-weight: 500;
+		color: var(--text-secondary);
+		transition: all 0.3s ease;
+	}
 
-	@keyframes rotateText {
-		0%, 20% { opacity: 0; transform: translateX(-50%) translateY(20px); }
-		25%, 45% { opacity: 1; transform: translateX(-50%) translateY(0); }
-		50%, 100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+	.role-item:hover {
+		color: var(--text-primary);
+		transform: translateX(10px);
+	}
+
+	.bullet {
+		color: var(--accent-purple);
+		font-size: 1.5rem;
 	}
 
 	.social-links {
 		display: flex;
-		gap: 1.5rem;
-		justify-content: center;
-		margin-bottom: 2rem;
+		gap: 1rem;
 	}
 
-	.social-icon {
+	.social-btn {
 		width: 50px;
 		height: 50px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: rgba(255,255,255,0.1);
+		background: var(--bg-card);
+		border: 1px solid var(--border-color);
 		border-radius: 50%;
-		font-size: 1.5rem;
+		font-size: 1.2rem;
 		transition: all 0.3s ease;
 	}
 
-	.social-icon:hover {
-		background: rgba(255,255,255,0.2);
+	.social-btn:hover {
+		background: var(--accent-purple);
+		border-color: var(--accent-purple);
 		transform: translateY(-5px);
 	}
 
-	.hero-description {
-		max-width: 700px;
-		margin: 0 auto 2rem;
-		font-size: 1.1rem;
-		line-height: 1.8;
-		opacity: 0.9;
+	.hero-right {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
 	}
 
-	.cta-button {
-		display: inline-block;
-		padding: 1rem 3rem;
-		background: white;
-		color: #667eea;
-		border-radius: 50px;
+	.avatar-container {
+		position: relative;
+		display: flex;
+		justify-content: center;
+	}
+
+	.avatar-glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 120%;
+		height: 120%;
+		background: radial-gradient(circle, rgba(168, 85, 247, 0.3), transparent 70%);
+		border-radius: 50%;
+		animation: pulse 3s ease-in-out infinite;
+	}
+
+	@keyframes pulse {
+		0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+		50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+	}
+
+	.avatar {
+		position: relative;
+		z-index: 1;
+		max-width: 400px;
+		width: 100%;
+		height: auto;
+		image-rendering: pixelated;
+		filter: drop-shadow(0 10px 30px rgba(168, 85, 247, 0.4));
+	}
+
+	.description-box {
+		background: var(--bg-card);
+		border: 1px solid var(--border-color);
+		border-radius: 1rem;
+		padding: 2rem;
+		border-left: 4px solid var(--accent-purple);
+	}
+
+	.description-box p {
+		color: var(--text-secondary);
+		line-height: 1.8;
+		margin-bottom: 1.5rem;
+	}
+
+	.cta-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1rem 2rem;
+		background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+		border-radius: 0.5rem;
 		font-weight: 600;
-		font-size: 1.1rem;
+		color: white;
 		transition: all 0.3s ease;
 	}
 
-	.cta-button:hover {
+	.cta-btn:hover {
 		transform: translateY(-3px);
-		box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+		box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
 	}
 
-	@keyframes fadeInUp {
-		from {
-			opacity: 0;
-			transform: translateY(30px);
+	@media (max-width: 968px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+			text-align: center;
 		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
 
-	@media (max-width: 768px) {
 		.hero-title {
-			font-size: 2rem;
+			font-size: 3rem;
 		}
 
-		.rotating-text {
-			font-size: 1.2rem;
-			min-height: 60px;
+		.role-list {
+			align-items: center;
 		}
 
-		.logo {
+		.social-links {
+			justify-content: center;
+		}
+
+		.avatar {
 			max-width: 300px;
-		}
-
-		.hero-description {
-			font-size: 1rem;
 		}
 	}
 </style>

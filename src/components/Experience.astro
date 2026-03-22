@@ -1,44 +1,58 @@
 ---
 const experiences = [
 	{
-		title: 'VALORA STUDIO & 5TARS.io',
-		role: 'Socio y responsable tecnológico',
-		description: 'Liderando la arquitectura IT de todos los proyectos, incluida la plataforma Web3 5TARS.io. Diseño infraestructuras escalables en la nube, dirijo equipos de desarrollo y tomo decisiones estratégicas sobre el stack tecnológico.'
+		company: 'Fundador y CTO',
+		role: 'Valora Studio',
+		period: '2025 - present',
+		description: 'Socio y responsable tecnológico de Valora Studio, liderando la arquitectura IT de todos los proyectos, incluida la plataforma Web3 5TARS.io. En este rol diseño infraestructuras escalables en la nube, dirijo equipos de desarrollo y tomo decisiones estratégicas sobre el stack tecnológico.'
 	},
 	{
-		title: 'KEEP CODING',
-		role: 'Formador en bootcamp de desarrollo blockchain',
-		description: 'Enseño a construir y desplegar smart contracts usando Solidity y Web3.js.'
+		company: 'Instructor',
+		role: 'Keep Coding',
+		period: '2023 - present',
+		description: 'Formador en bootcamp de desarrollo blockchain. Enseño a construir y desplegar smart contracts usando Solidity y Web3.js.'
 	},
 	{
-		title: 'THE KEY TALENT',
-		role: 'Director técnico y líder de producto',
-		description: 'Encargado del stack tecnológico, la calidad del código y la coordinación de los equipos de desarrollo en la software factory.'
+		company: 'Head of Technology',
+		role: 'The Key Talent',
+		period: '2017 - 2022',
+		description: 'Director técnico y líder de producto en la software factory de The Key Talent. Encargado del stack tecnológico, la calidad del código y la coordinación de los equipos de desarrollo.'
 	},
 	{
-		title: 'BBVA NEXT',
-		role: 'Arquitecto senior de software',
-		description: 'Responsable de arquitectura tanto en frontend como backend, aplicando patrones de diseño y buenas prácticas.'
+		company: 'Lead Software Architect',
+		role: 'BBVA Next',
+		period: '2014 - 2017',
+		description: 'Arquitecto senior de software, responsable de arquitectura tanto en frontend como backend, aplicando patrones de diseño y buenas prácticas.'
 	},
 	{
-		title: 'ORACLE CERNER (UK)',
-		role: 'Líder técnico en el sector salud',
-		description: 'Responsable de desarrollo con Java y Eclipse RCP y coordinación de equipo en entorno internacional para el NHS británico.'
+		company: 'Software Engineer Team Lead',
+		role: 'Oracle Cerner (UK)',
+		period: '2012 - 2014',
+		description: 'Líder técnico en el sector salud para el NHS británico. Responsable de desarrollo con Java y Eclipse RCP y coordinación de equipo en entorno internacional.'
 	}
 ];
 ---
 
 <section id="experience">
 	<div class="container">
-		<h2 class="section-title">{'{ Experiencia }'}</h2>
+		<h2 class="section-title">Puntos clave en mi trayectoria profesional</h2>
 		
 		<div class="timeline">
 			{experiences.map((exp, index) => (
 				<div class="timeline-item" style={`animation-delay: ${index * 0.1}s`}>
-					<div class="timeline-marker"></div>
-					<div class="timeline-content">
-						<h3 class="exp-title">{exp.title}</h3>
-						<h4 class="exp-role">{exp.role}</h4>
+					<div class="timeline-marker">
+						<div class="marker-dot"></div>
+						<div class="marker-line"></div>
+					</div>
+					
+					<div class="timeline-content card">
+						<div class="timeline-header">
+							<div>
+								<h3 class="exp-company">{exp.company}</h3>
+								<h4 class="exp-role">{exp.role}</h4>
+							</div>
+							<span class="exp-period">{exp.period}</span>
+						</div>
 						<p class="exp-description">{exp.description}</p>
 					</div>
 				</div>
@@ -49,88 +63,97 @@ const experiences = [
 
 <style>
 	#experience {
-		background: var(--bg-gray);
+		background: var(--bg-dark);
 	}
 
 	.section-title {
 		text-align: center;
 		margin-bottom: 4rem;
-		color: var(--primary-color);
 		font-size: 2.5rem;
+		color: var(--text-primary);
 	}
 
 	.timeline {
-		position: relative;
 		max-width: 900px;
 		margin: 0 auto;
-		padding-left: 50px;
-	}
-
-	.timeline::before {
-		content: '';
-		position: absolute;
-		left: 20px;
-		top: 0;
-		bottom: 0;
-		width: 2px;
-		background: linear-gradient(to bottom, #667eea, #764ba2);
+		position: relative;
 	}
 
 	.timeline-item {
-		position: relative;
+		display: grid;
+		grid-template-columns: 80px 1fr;
+		gap: 2rem;
 		margin-bottom: 3rem;
 		opacity: 0;
 		animation: slideInLeft 0.6s forwards;
 	}
 
 	.timeline-marker {
-		position: absolute;
-		left: -35px;
-		top: 0;
-		width: 15px;
-		height: 15px;
-		background: white;
-		border: 4px solid #667eea;
-		border-radius: 50%;
-		transition: all 0.3s ease;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
-	.timeline-item:hover .timeline-marker {
-		transform: scale(1.5);
-		border-color: #764ba2;
+	.marker-dot {
+		width: 16px;
+		height: 16px;
+		background: var(--accent-purple);
+		border-radius: 50%;
+		box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+		z-index: 1;
+		flex-shrink: 0;
+	}
+
+	.marker-line {
+		width: 2px;
+		flex: 1;
+		background: linear-gradient(to bottom, var(--accent-purple), transparent);
+		margin-top: 0.5rem;
+	}
+
+	.timeline-item:last-child .marker-line {
+		display: none;
 	}
 
 	.timeline-content {
-		background: white;
-		padding: 2rem;
-		border-radius: 1rem;
-		box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-		transition: all 0.3s ease;
-		border-left: 4px solid #667eea;
+		min-height: 150px;
 	}
 
-	.timeline-item:hover .timeline-content {
-		transform: translateX(10px);
-		box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+	.timeline-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 1rem;
+		gap: 1rem;
 	}
 
-	.exp-title {
+	.exp-company {
 		font-size: 1.4rem;
 		font-weight: 700;
-		color: var(--primary-color);
-		margin-bottom: 0.5rem;
+		color: var(--text-primary);
+		margin-bottom: 0.25rem;
 	}
 
 	.exp-role {
 		font-size: 1.1rem;
 		font-weight: 500;
-		color: #667eea;
-		margin-bottom: 1rem;
+		color: var(--accent-purple);
+	}
+
+	.exp-period {
+		padding: 0.5rem 1rem;
+		background: var(--bg-dark);
+		border: 1px solid var(--border-color);
+		border-radius: 2rem;
+		font-size: 0.9rem;
+		color: var(--text-secondary);
+		white-space: nowrap;
 	}
 
 	.exp-description {
-		color: var(--text-color);
-		line-height: 1.6;
+		color: var(--text-secondary);
+		line-height: 1.7;
 	}
 
 	@keyframes slideInLeft {
@@ -145,24 +168,25 @@ const experiences = [
 	}
 
 	@media (max-width: 768px) {
-		.timeline {
-			padding-left: 30px;
-		}
-
-		.timeline::before {
-			left: 10px;
-		}
-
-		.timeline-marker {
-			left: -22px;
+		.timeline-item {
+			grid-template-columns: 50px 1fr;
+			gap: 1rem;
 		}
 
 		.section-title {
-			font-size: 2rem;
+			font-size: 1.75rem;
 		}
 
-		.exp-title {
+		.exp-company {
 			font-size: 1.2rem;
+		}
+
+		.timeline-header {
+			flex-direction: column;
+		}
+
+		.exp-period {
+			align-self: flex-start;
 		}
 	}
 </style>

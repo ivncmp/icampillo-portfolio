@@ -2,26 +2,32 @@
 const services = [
 	{
 		icon: 'fas fa-cloud',
+		iconColor: '#a855f7',
 		title: 'Arquitectura e infraestructura en la nube'
 	},
 	{
 		icon: 'fas fa-link',
+		iconColor: '#3b82f6',
 		title: 'Blockchain & Smart Contracts'
 	},
 	{
 		icon: 'fas fa-code',
+		iconColor: '#10b981',
 		title: 'Full Stack Development'
 	},
 	{
 		icon: 'fas fa-plug',
+		iconColor: '#a855f7',
 		title: 'Diseño API & Integración'
 	},
 	{
 		icon: 'fas fa-users',
+		iconColor: '#3b82f6',
 		title: 'Liderazgo de equipos tecnológicos'
 	},
 	{
 		icon: 'fas fa-graduation-cap',
+		iconColor: '#10b981',
 		title: 'Enseñanza & Blockchain Training'
 	}
 ];
@@ -29,13 +35,12 @@ const services = [
 
 <section id="what-i-do">
 	<div class="container">
-		<h2 class="section-title">{'{ Lo que hago }'}</h2>
-		<p class="section-subtitle">Diseño de soluciones escalables en la nube y Web3</p>
+		<h2 class="section-title">Diseño de soluciones escalables en la nube y Web3</h2>
 		
 		<div class="services-grid">
 			{services.map((service) => (
-				<div class="service-card">
-					<div class="service-icon">
+				<div class="service-card card">
+					<div class="service-icon" style={`background: ${service.iconColor}15; color: ${service.iconColor};`}>
 						<i class={service.icon}></i>
 					</div>
 					<h3 class="service-title">{service.title}</h3>
@@ -47,21 +52,14 @@ const services = [
 
 <style>
 	#what-i-do {
-		background: var(--bg-gray);
+		background: var(--bg-dark);
 	}
 
 	.section-title {
 		text-align: center;
-		margin-bottom: 1rem;
-		color: var(--primary-color);
-		font-size: 2.5rem;
-	}
-
-	.section-subtitle {
-		text-align: center;
-		color: var(--text-light);
-		font-size: 1.2rem;
 		margin-bottom: 4rem;
+		font-size: 2rem;
+		color: var(--text-secondary);
 	}
 
 	.services-grid {
@@ -71,18 +69,8 @@ const services = [
 	}
 
 	.service-card {
-		background: white;
-		padding: 2.5rem 2rem;
-		border-radius: 1rem;
 		text-align: center;
-		transition: all 0.3s ease;
-		border: 2px solid transparent;
-	}
-
-	.service-card:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-		border-color: var(--accent-color);
+		cursor: pointer;
 	}
 
 	.service-icon {
@@ -92,21 +80,20 @@ const services = [
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		border-radius: 50%;
+		border-radius: 1rem;
 		font-size: 2rem;
-		color: white;
 		transition: all 0.3s ease;
 	}
 
 	.service-card:hover .service-icon {
-		transform: scale(1.1) rotate(5deg);
+		transform: scale(1.1) rotate(-5deg);
 	}
 
 	.service-title {
 		font-size: 1.1rem;
-		font-weight: 600;
-		color: var(--text-color);
+		font-weight: 500;
+		color: var(--text-primary);
+		line-height: 1.5;
 	}
 
 	@media (max-width: 768px) {
@@ -115,7 +102,7 @@ const services = [
 		}
 
 		.section-title {
-			font-size: 2rem;
+			font-size: 1.5rem;
 		}
 	}
 </style>

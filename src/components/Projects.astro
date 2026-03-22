@@ -3,52 +3,53 @@ const projects = [
 	{
 		title: '5TARS',
 		description: 'El juego definitivo de predicciones deportivas y fantasy web3 impulsado por IA',
-		tech: 'AWS, NodeJS, Angular, SQL and NoSQL databases',
-		link: 'https://5tars.io'
-	},
-	{
-		title: 'My-Bowling',
-		description: 'Plataforma de gestión multi-federación para clubs de bolos con IA',
-		tech: 'React, TypeScript, Supabase, Deno Edge Functions',
-		link: 'https://my-bowling.vercel.app'
-	},
-	{
-		title: 'WavEconomy',
-		description: 'SaaS B2B de evaluación empresarial con economía de tokens WAVE',
-		tech: 'React, TypeScript, Material-UI, Supabase',
-		link: 'https://waveconomy.vercel.app'
-	},
-	{
-		title: 'CrayfishJS',
-		description: 'Framework TypeScript ligero para AWS Lambda serverless',
-		tech: 'TypeScript, Node.js, AWS Lambda, CLI',
-		link: 'https://github.com/ivncmp/crayfish-js'
+		tech: ['AWS', 'NodeJS', 'Angular', 'SQL', 'NoSQL'],
+		link: 'https://5tars.io',
+		color: '#3b82f6'
 	},
 	{
 		title: 'Starzplay Cricket Contest',
 		description: 'Aumentar la participación de los aficionados al cricket mediante la gamificación',
-		tech: 'AWS, NodeJS, Angular, SQL and NoSQL databases',
-		link: '#'
+		tech: ['AWS', 'NodeJS', 'Angular', 'SQL', 'NoSQL'],
+		link: '#',
+		color: '#a855f7'
+	},
+	{
+		title: 'My-Bowling',
+		description: 'Plataforma de gestión multi-federación para clubs de bolos con IA',
+		tech: ['React', 'TypeScript', 'Supabase', 'Deno'],
+		link: 'https://my-bowling.vercel.app',
+		color: '#10b981'
+	},
+	{
+		title: 'WavEconomy',
+		description: 'SaaS B2B de evaluación empresarial con economía de tokens',
+		tech: ['React', 'Material-UI', 'Supabase'],
+		link: 'https://waveconomy.vercel.app',
+		color: '#3b82f6'
 	}
 ];
 ---
 
 <section id="projects">
 	<div class="container">
-		<h2 class="section-title">{'{ Web Dev Portfolio }'}</h2>
-		<p class="section-subtitle">Galería de Proyectos</p>
+		<h2 class="section-title">Galería de Proyectos</h2>
 		
 		<div class="projects-grid">
 			{projects.map((project) => (
-				<div class="project-card">
-					<div class="project-content">
+				<div class="project-card card">
+					<div class="project-header" style={`border-left: 4px solid ${project.color};`}>
 						<h3 class="project-title">{project.title}</h3>
-						<p class="project-description">{project.description}</p>
-						<div class="project-tech">
-							<span class="tech-label">Tecnologías:</span>
-							<p>{project.tech}</p>
-						</div>
 					</div>
+					
+					<p class="project-description">{project.description}</p>
+					
+					<div class="project-tech">
+						{project.tech.map((tech) => (
+							<span class="tech-badge">{tech}</span>
+						))}
+					</div>
+					
 					{project.link !== '#' && (
 						<a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
 							Ver proyecto <i class="fas fa-arrow-right"></i>
@@ -62,21 +63,14 @@ const projects = [
 
 <style>
 	#projects {
-		background: white;
+		background: var(--bg-dark);
 	}
 
 	.section-title {
 		text-align: center;
-		margin-bottom: 1rem;
-		color: var(--primary-color);
-		font-size: 2.5rem;
-	}
-
-	.section-subtitle {
-		text-align: center;
-		color: var(--text-light);
-		font-size: 1.2rem;
 		margin-bottom: 4rem;
+		font-size: 2.5rem;
+		color: var(--text-primary);
 	}
 
 	.projects-grid {
@@ -86,72 +80,59 @@ const projects = [
 	}
 
 	.project-card {
-		background: var(--bg-gray);
-		border-radius: 1rem;
-		overflow: hidden;
-		transition: all 0.3s ease;
-		border: 2px solid transparent;
 		display: flex;
 		flex-direction: column;
+		gap: 1.5rem;
 	}
 
-	.project-card:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-		border-color: var(--accent-color);
-	}
-
-	.project-content {
-		padding: 2rem;
-		flex: 1;
+	.project-header {
+		padding-left: 1rem;
 	}
 
 	.project-title {
 		font-size: 1.5rem;
 		font-weight: 700;
-		margin-bottom: 1rem;
-		color: var(--primary-color);
+		color: var(--text-primary);
 	}
 
 	.project-description {
-		color: var(--text-color);
-		margin-bottom: 1.5rem;
+		color: var(--text-secondary);
 		line-height: 1.6;
 	}
 
 	.project-tech {
-		background: white;
-		padding: 1rem;
-		border-radius: 0.5rem;
-		border-left: 4px solid var(--accent-color);
-	}
-
-	.tech-label {
-		font-weight: 600;
-		color: var(--text-color);
-		display: block;
-		margin-bottom: 0.5rem;
-	}
-
-	.project-tech p {
-		color: var(--text-light);
-		font-size: 0.9rem;
-	}
-
-	.project-link {
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		padding: 1rem;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		color: white;
-		font-weight: 600;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	.tech-badge {
+		padding: 0.5rem 1rem;
+		background: var(--bg-dark);
+		border: 1px solid var(--border-color);
+		border-radius: 2rem;
+		font-size: 0.85rem;
+		color: var(--text-secondary);
 		transition: all 0.3s ease;
 	}
 
+	.tech-badge:hover {
+		border-color: var(--accent-purple);
+		color: var(--text-primary);
+	}
+
+	.project-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--accent-purple);
+		font-weight: 600;
+		transition: all 0.3s ease;
+		margin-top: auto;
+	}
+
 	.project-link:hover {
-		background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+		gap: 1rem;
 	}
 
 	.project-link i {

@@ -3,29 +3,43 @@
 
 <section id="contact">
 	<div class="container">
-		<div class="contact-content">
-			<h2 class="contact-title">¿Hablamos?</h2>
-			<p class="contact-description">
-				Siempre estoy abierto a colaborar en nuevos proyectos, hablar de tecnología, 
-				o explorar ideas innovadoras en cloud, desarrollo o blockchain.
-			</p>
-			
-			<div class="contact-methods">
-				<a href="mailto:hello@icampillo.com" class="contact-button primary">
-					<i class="fas fa-envelope"></i>
-					hello@icampillo.com
-				</a>
-				
-				<div class="social-buttons">
-					<a href="https://www.linkedin.com/in/ivancampillo/" target="_blank" rel="noopener noreferrer" class="contact-button secondary">
-						<i class="fab fa-linkedin"></i>
-						LinkedIn
-					</a>
-					<a href="https://github.com/ivncmp" target="_blank" rel="noopener noreferrer" class="contact-button secondary">
-						<i class="fab fa-github"></i>
-						GitHub
-					</a>
+		<div class="contact-grid">
+			<!-- Left: Title + Blob -->
+			<div class="contact-left">
+				<h2 class="contact-title">¿Quieres trabajar conmigo?</h2>
+				<div class="blob-container">
+					<div class="blob"></div>
 				</div>
+			</div>
+
+			<!-- Right: Form -->
+			<div class="contact-right">
+				<form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+					<input type="hidden" name="form-name" value="contact" />
+					<input type="hidden" name="bot-field" />
+					
+					<div class="form-row">
+						<div class="form-group">
+							<input type="text" name="name" placeholder="Nombre" required class="form-input" />
+						</div>
+						<div class="form-group">
+							<input type="email" name="email" placeholder="Email" required class="form-input" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<input type="text" name="subject" placeholder="Asunto" required class="form-input" />
+					</div>
+
+					<div class="form-group">
+						<textarea name="message" placeholder="Mensaje" rows="5" required class="form-input"></textarea>
+					</div>
+
+					<button type="submit" class="submit-btn">
+						<span>ENVIAR</span>
+						<i class="fas fa-paper-plane"></i>
+					</button>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -33,113 +47,277 @@
 
 <footer>
 	<div class="container">
-		<p>&copy; {new Date().getFullYear()} Iván Campillo - Software Architect. Todos los derechos reservados.</p>
-		<p class="footer-location">Madrid, España | Dubái, UAE</p>
+		<div class="footer-content">
+			<div class="footer-left">
+				<h3 class="pixel-font footer-brand">IVÁN CAMPILLO</h3>
+				<p class="footer-tagline">Desde la nube hasta la Blockchain, trabajando con tecnologías modernas, centradas en la performance y la escalabilidad</p>
+				
+				<div class="footer-social">
+					<a href="mailto:hello@icampillo.com" aria-label="Email">
+						<i class="fas fa-envelope"></i>
+					</a>
+					<a href="https://www.linkedin.com/in/ivancampillo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+						<i class="fab fa-linkedin"></i>
+					</a>
+					<a href="https://github.com/ivncmp" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+						<i class="fab fa-github"></i>
+					</a>
+				</div>
+			</div>
+
+			<div class="footer-right">
+				<h4 class="footer-tech-title">Tech Stack</h4>
+				<div class="tech-icons">
+					<div class="tech-icon" title="React"><i class="fab fa-react"></i></div>
+					<div class="tech-icon" title="Node.js"><i class="fab fa-node-js"></i></div>
+					<div class="tech-icon" title="AWS"><i class="fab fa-aws"></i></div>
+					<div class="tech-icon" title="Docker"><i class="fab fa-docker"></i></div>
+					<div class="tech-icon" title="Python"><i class="fab fa-python"></i></div>
+					<div class="tech-icon" title="JavaScript"><i class="fab fa-js"></i></div>
+					<div class="tech-icon" title="Git"><i class="fab fa-git-alt"></i></div>
+					<div class="tech-icon" title="Angular"><i class="fab fa-angular"></i></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<p>&copy; {new Date().getFullYear()} Iván Campillo. Todos los derechos reservados.</p>
+		</div>
 	</div>
 </footer>
 
 <style>
 	#contact {
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		background: linear-gradient(135deg, var(--accent-purple) 0%, #7c3aed 100%);
 		color: white;
-		text-align: center;
+		position: relative;
+		overflow: hidden;
 	}
 
-	.contact-content {
-		max-width: 800px;
-		margin: 0 auto;
+	.contact-grid {
+		display: grid;
+		grid-template-columns: 1fr 1.2fr;
+		gap: 4rem;
+		align-items: center;
 	}
 
 	.contact-title {
 		font-size: 3rem;
-		margin-bottom: 1.5rem;
+		margin-bottom: 2rem;
+		line-height: 1.2;
 	}
 
-	.contact-description {
-		font-size: 1.2rem;
-		line-height: 1.8;
-		opacity: 0.95;
-		margin-bottom: 3rem;
+	.blob-container {
+		position: relative;
+		width: 300px;
+		height: 300px;
 	}
 
-	.contact-methods {
-		display: flex;
-		flex-direction: column;
-		gap: 2rem;
-		align-items: center;
+	.blob {
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(59, 130, 246, 0.3));
+		border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+		animation: morphBlob 8s ease-in-out infinite;
+		filter: blur(40px);
 	}
 
-	.contact-button {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 1.2rem 2.5rem;
-		border-radius: 50px;
-		font-size: 1.1rem;
-		font-weight: 600;
+	@keyframes morphBlob {
+		0%, 100% {
+			border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+		}
+		34% {
+			border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
+		}
+		67% {
+			border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+		}
+	}
+
+	.contact-form {
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 1rem;
+		padding: 2.5rem;
+	}
+
+	.form-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.form-group {
+		margin-bottom: 1rem;
+	}
+
+	.form-input {
+		width: 100%;
+		padding: 1rem;
+		background: rgba(255, 255, 255, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 0.5rem;
+		color: white;
+		font-size: 1rem;
+		font-family: 'Work Sans', sans-serif;
 		transition: all 0.3s ease;
 	}
 
-	.contact-button.primary {
+	.form-input::placeholder {
+		color: rgba(255, 255, 255, 0.6);
+	}
+
+	.form-input:focus {
+		outline: none;
+		border-color: rgba(255, 255, 255, 0.5);
+		background: rgba(255, 255, 255, 0.15);
+	}
+
+	textarea.form-input {
+		resize: vertical;
+		min-height: 120px;
+	}
+
+	.submit-btn {
+		width: 100%;
+		padding: 1.2rem;
 		background: white;
-		color: #667eea;
-	}
-
-	.contact-button.primary:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-	}
-
-	.social-buttons {
+		color: var(--accent-purple);
+		border: none;
+		border-radius: 0.5rem;
+		font-size: 1.1rem;
+		font-weight: 700;
+		cursor: pointer;
 		display: flex;
-		gap: 1.5rem;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		transition: all 0.3s ease;
 	}
 
-	.contact-button.secondary {
-		background: rgba(255,255,255,0.1);
+	.submit-btn:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+	}
+
+	/* Footer */
+	footer {
+		background: #0a0a0a;
 		color: white;
-		border: 2px solid white;
+		padding: 4rem 0 2rem;
 	}
 
-	.contact-button.secondary:hover {
-		background: rgba(255,255,255,0.2);
+	.footer-content {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		gap: 4rem;
+		margin-bottom: 3rem;
+		padding-bottom: 3rem;
+		border-bottom: 1px solid var(--border-color);
+	}
+
+	.footer-brand {
+		font-size: 2rem;
+		letter-spacing: 2px;
+		margin-bottom: 1rem;
+		color: var(--accent-purple);
+	}
+
+	.footer-tagline {
+		color: var(--text-secondary);
+		line-height: 1.7;
+		margin-bottom: 2rem;
+	}
+
+	.footer-social {
+		display: flex;
+		gap: 1rem;
+	}
+
+	.footer-social a {
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--bg-card);
+		border: 1px solid var(--border-color);
+		border-radius: 50%;
+		font-size: 1.1rem;
+		transition: all 0.3s ease;
+	}
+
+	.footer-social a:hover {
+		background: var(--accent-purple);
+		border-color: var(--accent-purple);
+		transform: translateY(-3px);
+	}
+
+	.footer-tech-title {
+		font-size: 1.2rem;
+		margin-bottom: 1.5rem;
+		color: var(--text-primary);
+	}
+
+	.tech-icons {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1rem;
+	}
+
+	.tech-icon {
+		width: 60px;
+		height: 60px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--bg-card);
+		border: 1px solid var(--border-color);
+		border-radius: 0.5rem;
+		font-size: 1.8rem;
+		color: var(--text-secondary);
+		transition: all 0.3s ease;
+		cursor: help;
+	}
+
+	.tech-icon:hover {
+		color: var(--accent-purple);
+		border-color: var(--accent-purple);
 		transform: translateY(-5px);
 	}
 
-	footer {
-		background: #1a1a1a;
-		color: white;
+	.footer-bottom {
 		text-align: center;
-		padding: 2rem 0;
-	}
-
-	footer p {
-		margin: 0.5rem 0;
-		opacity: 0.8;
-	}
-
-	.footer-location {
+		color: var(--text-secondary);
 		font-size: 0.9rem;
-		opacity: 0.6;
 	}
 
-	@media (max-width: 768px) {
+	@media (max-width: 968px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+		}
+
 		.contact-title {
 			font-size: 2rem;
 		}
 
-		.contact-description {
-			font-size: 1rem;
+		.blob-container {
+			display: none;
 		}
 
-		.social-buttons {
-			flex-direction: column;
-			width: 100%;
+		.form-row {
+			grid-template-columns: 1fr;
 		}
 
-		.contact-button {
-			width: 100%;
-			justify-content: center;
+		.footer-content {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+
+		.tech-icons {
+			grid-template-columns: repeat(4, 1fr);
 		}
 	}
 </style>

@@ -16,10 +16,10 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		
-		<!-- Font: Space Grotesk -->
+		<!-- Font: VT323 (pixel font) + Work Sans -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=VT323&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -31,13 +31,14 @@ const { title } = Astro.props;
 
 <style is:global>
 	:root {
-		--primary-color: #000000;
-		--secondary-color: #ffffff;
-		--accent-color: #3b82f6;
-		--text-color: #1f2937;
-		--text-light: #6b7280;
-		--border-color: #e5e7eb;
-		--bg-gray: #f9fafb;
+		--bg-dark: #0a0a0a;
+		--bg-card: #1a1a1a;
+		--text-primary: #ffffff;
+		--text-secondary: #a0a0a0;
+		--accent-purple: #a855f7;
+		--accent-green: #10b981;
+		--accent-blue: #3b82f6;
+		--border-color: #2a2a2a;
 	}
 
 	* {
@@ -51,10 +52,14 @@ const { title } = Astro.props;
 	}
 
 	body {
-		font-family: 'Space Grotesk', sans-serif;
-		color: var(--text-color);
-		background: var(--secondary-color);
+		font-family: 'Work Sans', sans-serif;
+		color: var(--text-primary);
+		background: var(--bg-dark);
 		line-height: 1.6;
+	}
+
+	.pixel-font {
+		font-family: 'VT323', monospace;
 	}
 
 	.container {
@@ -73,7 +78,7 @@ const { title } = Astro.props;
 	}
 
 	h1 {
-		font-size: 3rem;
+		font-size: 4rem;
 	}
 
 	h2 {
@@ -93,24 +98,45 @@ const { title } = Astro.props;
 	button, .btn {
 		cursor: pointer;
 		border: none;
-		background: var(--primary-color);
-		color: var(--secondary-color);
+		background: var(--accent-purple);
+		color: white;
 		padding: 1rem 2rem;
 		border-radius: 0.5rem;
 		font-size: 1rem;
 		font-weight: 500;
 		transition: all 0.3s ease;
-		font-family: 'Space Grotesk', sans-serif;
+		font-family: 'Work Sans', sans-serif;
 	}
 
 	button:hover, .btn:hover {
 		transform: translateY(-2px);
-		box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+		box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
+	}
+
+	.gradient-text {
+		background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.card {
+		background: var(--bg-card);
+		border: 1px solid var(--border-color);
+		border-radius: 1rem;
+		padding: 2rem;
+		transition: all 0.3s ease;
+	}
+
+	.card:hover {
+		border-color: var(--accent-purple);
+		box-shadow: 0 10px 40px rgba(168, 85, 247, 0.2);
+		transform: translateY(-5px);
 	}
 
 	@media (max-width: 768px) {
 		h1 {
-			font-size: 2rem;
+			font-size: 2.5rem;
 		}
 
 		h2 {
