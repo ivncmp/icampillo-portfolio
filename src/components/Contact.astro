@@ -1,0 +1,145 @@
+---
+---
+
+<section id="contact">
+	<div class="container">
+		<div class="contact-content">
+			<h2 class="contact-title">¿Hablamos?</h2>
+			<p class="contact-description">
+				Siempre estoy abierto a colaborar en nuevos proyectos, hablar de tecnología, 
+				o explorar ideas innovadoras en cloud, desarrollo o blockchain.
+			</p>
+			
+			<div class="contact-methods">
+				<a href="mailto:hello@icampillo.com" class="contact-button primary">
+					<i class="fas fa-envelope"></i>
+					hello@icampillo.com
+				</a>
+				
+				<div class="social-buttons">
+					<a href="https://www.linkedin.com/in/ivancampillo/" target="_blank" rel="noopener noreferrer" class="contact-button secondary">
+						<i class="fab fa-linkedin"></i>
+						LinkedIn
+					</a>
+					<a href="https://github.com/ivncmp" target="_blank" rel="noopener noreferrer" class="contact-button secondary">
+						<i class="fab fa-github"></i>
+						GitHub
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<footer>
+	<div class="container">
+		<p>&copy; {new Date().getFullYear()} Iván Campillo - Software Architect. Todos los derechos reservados.</p>
+		<p class="footer-location">Madrid, España | Dubái, UAE</p>
+	</div>
+</footer>
+
+<style>
+	#contact {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+		text-align: center;
+	}
+
+	.contact-content {
+		max-width: 800px;
+		margin: 0 auto;
+	}
+
+	.contact-title {
+		font-size: 3rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.contact-description {
+		font-size: 1.2rem;
+		line-height: 1.8;
+		opacity: 0.95;
+		margin-bottom: 3rem;
+	}
+
+	.contact-methods {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		align-items: center;
+	}
+
+	.contact-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 1.2rem 2.5rem;
+		border-radius: 50px;
+		font-size: 1.1rem;
+		font-weight: 600;
+		transition: all 0.3s ease;
+	}
+
+	.contact-button.primary {
+		background: white;
+		color: #667eea;
+	}
+
+	.contact-button.primary:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+	}
+
+	.social-buttons {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.contact-button.secondary {
+		background: rgba(255,255,255,0.1);
+		color: white;
+		border: 2px solid white;
+	}
+
+	.contact-button.secondary:hover {
+		background: rgba(255,255,255,0.2);
+		transform: translateY(-5px);
+	}
+
+	footer {
+		background: #1a1a1a;
+		color: white;
+		text-align: center;
+		padding: 2rem 0;
+	}
+
+	footer p {
+		margin: 0.5rem 0;
+		opacity: 0.8;
+	}
+
+	.footer-location {
+		font-size: 0.9rem;
+		opacity: 0.6;
+	}
+
+	@media (max-width: 768px) {
+		.contact-title {
+			font-size: 2rem;
+		}
+
+		.contact-description {
+			font-size: 1rem;
+		}
+
+		.social-buttons {
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.contact-button {
+			width: 100%;
+			justify-content: center;
+		}
+	}
+</style>

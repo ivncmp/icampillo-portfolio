@@ -1,0 +1,121 @@
+---
+const services = [
+	{
+		icon: 'fas fa-cloud',
+		title: 'Arquitectura e infraestructura en la nube'
+	},
+	{
+		icon: 'fas fa-link',
+		title: 'Blockchain & Smart Contracts'
+	},
+	{
+		icon: 'fas fa-code',
+		title: 'Full Stack Development'
+	},
+	{
+		icon: 'fas fa-plug',
+		title: 'Diseño API & Integración'
+	},
+	{
+		icon: 'fas fa-users',
+		title: 'Liderazgo de equipos tecnológicos'
+	},
+	{
+		icon: 'fas fa-graduation-cap',
+		title: 'Enseñanza & Blockchain Training'
+	}
+];
+---
+
+<section id="what-i-do">
+	<div class="container">
+		<h2 class="section-title">{ Lo que hago }</h2>
+		<p class="section-subtitle">Diseño de soluciones escalables en la nube y Web3</p>
+		
+		<div class="services-grid">
+			{services.map((service) => (
+				<div class="service-card">
+					<div class="service-icon">
+						<i class={service.icon}></i>
+					</div>
+					<h3 class="service-title">{service.title}</h3>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	#what-i-do {
+		background: var(--bg-gray);
+	}
+
+	.section-title {
+		text-align: center;
+		margin-bottom: 1rem;
+		color: var(--primary-color);
+		font-size: 2.5rem;
+	}
+
+	.section-subtitle {
+		text-align: center;
+		color: var(--text-light);
+		font-size: 1.2rem;
+		margin-bottom: 4rem;
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+	}
+
+	.service-card {
+		background: white;
+		padding: 2.5rem 2rem;
+		border-radius: 1rem;
+		text-align: center;
+		transition: all 0.3s ease;
+		border: 2px solid transparent;
+	}
+
+	.service-card:hover {
+		transform: translateY(-10px);
+		box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+		border-color: var(--accent-color);
+	}
+
+	.service-icon {
+		width: 80px;
+		height: 80px;
+		margin: 0 auto 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		border-radius: 50%;
+		font-size: 2rem;
+		color: white;
+		transition: all 0.3s ease;
+	}
+
+	.service-card:hover .service-icon {
+		transform: scale(1.1) rotate(5deg);
+	}
+
+	.service-title {
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--text-color);
+	}
+
+	@media (max-width: 768px) {
+		.services-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.section-title {
+			font-size: 2rem;
+		}
+	}
+</style>

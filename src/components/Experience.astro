@@ -1,0 +1,168 @@
+---
+const experiences = [
+	{
+		title: 'VALORA STUDIO & 5TARS.io',
+		role: 'Socio y responsable tecnológico',
+		description: 'Liderando la arquitectura IT de todos los proyectos, incluida la plataforma Web3 5TARS.io. Diseño infraestructuras escalables en la nube, dirijo equipos de desarrollo y tomo decisiones estratégicas sobre el stack tecnológico.'
+	},
+	{
+		title: 'KEEP CODING',
+		role: 'Formador en bootcamp de desarrollo blockchain',
+		description: 'Enseño a construir y desplegar smart contracts usando Solidity y Web3.js.'
+	},
+	{
+		title: 'THE KEY TALENT',
+		role: 'Director técnico y líder de producto',
+		description: 'Encargado del stack tecnológico, la calidad del código y la coordinación de los equipos de desarrollo en la software factory.'
+	},
+	{
+		title: 'BBVA NEXT',
+		role: 'Arquitecto senior de software',
+		description: 'Responsable de arquitectura tanto en frontend como backend, aplicando patrones de diseño y buenas prácticas.'
+	},
+	{
+		title: 'ORACLE CERNER (UK)',
+		role: 'Líder técnico en el sector salud',
+		description: 'Responsable de desarrollo con Java y Eclipse RCP y coordinación de equipo en entorno internacional para el NHS británico.'
+	}
+];
+---
+
+<section id="experience">
+	<div class="container">
+		<h2 class="section-title">{ Experiencia }</h2>
+		
+		<div class="timeline">
+			{experiences.map((exp, index) => (
+				<div class="timeline-item" style={`animation-delay: ${index * 0.1}s`}>
+					<div class="timeline-marker"></div>
+					<div class="timeline-content">
+						<h3 class="exp-title">{exp.title}</h3>
+						<h4 class="exp-role">{exp.role}</h4>
+						<p class="exp-description">{exp.description}</p>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	#experience {
+		background: var(--bg-gray);
+	}
+
+	.section-title {
+		text-align: center;
+		margin-bottom: 4rem;
+		color: var(--primary-color);
+		font-size: 2.5rem;
+	}
+
+	.timeline {
+		position: relative;
+		max-width: 900px;
+		margin: 0 auto;
+		padding-left: 50px;
+	}
+
+	.timeline::before {
+		content: '';
+		position: absolute;
+		left: 20px;
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: linear-gradient(to bottom, #667eea, #764ba2);
+	}
+
+	.timeline-item {
+		position: relative;
+		margin-bottom: 3rem;
+		opacity: 0;
+		animation: slideInLeft 0.6s forwards;
+	}
+
+	.timeline-marker {
+		position: absolute;
+		left: -35px;
+		top: 0;
+		width: 15px;
+		height: 15px;
+		background: white;
+		border: 4px solid #667eea;
+		border-radius: 50%;
+		transition: all 0.3s ease;
+	}
+
+	.timeline-item:hover .timeline-marker {
+		transform: scale(1.5);
+		border-color: #764ba2;
+	}
+
+	.timeline-content {
+		background: white;
+		padding: 2rem;
+		border-radius: 1rem;
+		box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+		transition: all 0.3s ease;
+		border-left: 4px solid #667eea;
+	}
+
+	.timeline-item:hover .timeline-content {
+		transform: translateX(10px);
+		box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+	}
+
+	.exp-title {
+		font-size: 1.4rem;
+		font-weight: 700;
+		color: var(--primary-color);
+		margin-bottom: 0.5rem;
+	}
+
+	.exp-role {
+		font-size: 1.1rem;
+		font-weight: 500;
+		color: #667eea;
+		margin-bottom: 1rem;
+	}
+
+	.exp-description {
+		color: var(--text-color);
+		line-height: 1.6;
+	}
+
+	@keyframes slideInLeft {
+		from {
+			opacity: 0;
+			transform: translateX(-50px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@media (max-width: 768px) {
+		.timeline {
+			padding-left: 30px;
+		}
+
+		.timeline::before {
+			left: 10px;
+		}
+
+		.timeline-marker {
+			left: -22px;
+		}
+
+		.section-title {
+			font-size: 2rem;
+		}
+
+		.exp-title {
+			font-size: 1.2rem;
+		}
+	}
+</style>
