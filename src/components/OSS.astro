@@ -1,0 +1,236 @@
+---
+import { OSS_REPOS } from '../data/index';
+import SectionHead from './SectionHead.astro';
+import I18n from './I18n.astro';
+
+// Deterministic pseudo-random for heatmap
+function rand(i: number) {
+  const x = Math.sin(i * 9876.54321) * 10000;
+  return x - Math.floor(x);
+}
+
+const weeks = 52;
+const days = 7;
+const cells: number[] = [];
+for (let w = 0; w < weeks; w++) {
+  for (let d = 0; d < days; d++) {
+    const r = rand(w * 7 + d);
+    let level = 0;
+    if (r > 0.25) level = 1;
+    if (r > 0.5) level = 2;
+    if (r > 0.72) level = 3;
+    if (r > 0.88) level = 4;
+    cells.push(level);
+  }
+}
+
+const heatmapColors = [
+  'rgba(255,255,255,0.03)',
+  'rgba(200,255,0,0.15)',
+  'rgba(200,255,0,0.35)',
+  'rgba(200,255,0,0.6)',
+  'rgba(200,255,0,0.95)',
+];
+---
+
+<section id="oss" class="oss-section section-bg" style="background-image: url('/bg/github.png')">
+  <div class="oss-inner">
+    <div class="oss-grid">
+      <!-- Left: heading + heatmap -->
+      <div data-reveal="left">
+        <SectionHead
+          cmd="gh repo list --sort=stars"
+          title='Open <span class="accent">Source</span>.'
+          kicker="Herramientas, frameworks y experimentos. Todo público, todo con issues abiertas."
+          kickerEn="Tools, frameworks, and experiments. All public, all with open issues."
+        />
+        <a href="https://github.com/ivncmp" class="btn btn-ghost oss-gh-link">
+          <span class="oss-gh-prefix">⎇</span> github.com/ivncmp →
+        </a>
+
+        <div class="oss-heatmap-wrapper">
+          <div class="oss-heatmap-header">
+            <span><I18n es="si compila, se shipea — ¿o no?" en="if it compiles, it ships — right?" /></span>
+            <span class="oss-heatmap-legend">
+              less
+              {heatmapColors.map((c) => (
+                <span class="oss-heatmap-swatch" style={`background: ${c}`} />
+              ))}
+              more
+            </span>
+          </div>
+          <div class="oss-heatmap">
+            {cells.map((level) => (
+              <div class="oss-heatmap-cell" style={`background: ${heatmapColors[level]}`} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: repo list -->
+      <div class="oss-repos" data-reveal="right">
+        <div class="oss-repos-header">
+          <span>popular repositories</span>
+          <span class="oss-repos-count">{OSS_REPOS.length} shown</span>
+        </div>
+        {OSS_REPOS.map((repo) => (
+          <a href={`https://github.com/${repo.name}`} target="_blank" rel="noopener noreferrer" class="oss-repo-row">
+            <div class="oss-repo-info">
+              <div class="oss-repo-name">{repo.name}</div>
+              <div class="oss-repo-desc">{repo.desc}</div>
+            </div>
+            <div class="oss-repo-lang">
+              <span class="oss-repo-lang-dot" style={`background: ${repo.langColor}`} />
+              {repo.lang}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .oss-section {
+    padding: 120px 32px;
+  }
+
+  .oss-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .oss-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: flex-start;
+  }
+
+  .oss-gh-link { margin-top: 8px; }
+  .oss-gh-prefix { color: var(--fg-mute); }
+
+  /* ── Heatmap ── */
+  .oss-heatmap-wrapper { margin-top: 40px; }
+
+  .oss-heatmap-header {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-dim);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .oss-heatmap-legend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .oss-heatmap-swatch {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+
+  .oss-heatmap {
+    display: grid;
+    grid-template-rows: repeat(9, 12px);
+    grid-auto-flow: column;
+    grid-auto-columns: 12px;
+    gap: 3px;
+  }
+
+  .oss-heatmap-cell {
+    border-radius: 2px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── Repo list ── */
+  .oss-repos {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .oss-repos-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--fg-dim);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .oss-repos-count { color: var(--fg-mute); }
+
+  .oss-repo-row {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+    transition: background 120ms ease;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .oss-repo-row:last-child { border-bottom: none; }
+
+  .oss-repo-row:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .oss-repo-name {
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--fg);
+    transition: color 120ms ease;
+  }
+
+  .oss-repo-row:hover .oss-repo-name { color: var(--accent); }
+
+  .oss-repo-desc {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--fg-dim);
+    margin-top: 4px;
+  }
+
+  .oss-repo-lang {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--fg-dim);
+  }
+
+  .oss-repo-lang-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+  }
+
+
+  @media (max-width: 900px) {
+    .oss-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .oss-section { padding: 80px 20px; }
+
+    .oss-heatmap {
+      overflow-x: auto;
+    }
+  }
+</style>

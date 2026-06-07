@@ -1,155 +1,529 @@
 ---
-const projects = [
-	{
-		title: '5TARS',
-		description: 'El juego definitivo de predicciones deportivas y fantasy web3 impulsado por IA',
-		tech: ['AWS', 'NodeJS', 'Angular', 'SQL', 'NoSQL'],
-		link: 'https://5tars.io',
-		color: '#3b82f6'
-	},
-	{
-		title: 'Starzplay Cricket Contest',
-		description: 'Aumentar la participación de los aficionados al cricket mediante la gamificación',
-		tech: ['AWS', 'NodeJS', 'Angular', 'SQL', 'NoSQL'],
-		link: '#',
-		color: '#a855f7'
-	},
-	{
-		title: 'My-Bowling',
-		description: 'Plataforma de gestión multi-federación para clubs de bolos con IA',
-		tech: ['React', 'TypeScript', 'Supabase', 'Deno'],
-		link: 'https://my-bowling.vercel.app',
-		color: '#10b981'
-	},
-	{
-		title: 'WavEconomy',
-		description: 'SaaS B2B de evaluación empresarial con economía de tokens',
-		tech: ['React', 'Material-UI', 'Supabase'],
-		link: 'https://waveconomy.vercel.app',
-		color: '#3b82f6'
-	}
-];
+import { PROJECTS } from '../data/index';
+import SectionHead from './SectionHead.astro';
+import I18n from './I18n.astro';
+
+const statusStyles: Record<string, { bg: string; fg: string; border: string; label: string }> = {
+  live:     { bg: 'rgba(126,231,135,0.12)', fg: 'var(--accent-2)', border: 'rgba(126,231,135,0.3)', label: '● live' },
+  beta:     { bg: 'rgba(210,168,255,0.12)', fg: 'var(--purple)',   border: 'rgba(210,168,255,0.3)', label: '◐ beta' },
+  oss:      { bg: 'rgba(121,192,255,0.12)', fg: 'var(--cyan)',     border: 'rgba(121,192,255,0.3)', label: '⎇ oss' },
+  archived: { bg: 'rgba(139,148,158,0.12)', fg: 'var(--fg-dim)',   border: 'rgba(139,148,158,0.3)', label: '▢ archived' },
+};
 ---
 
-<section id="projects">
-	<div class="container">
-		<h2 class="section-title">Galería de Proyectos</h2>
-		
-		<div class="projects-grid">
-			{projects.map((project) => (
-				<div class="project-card card">
-					<div class="project-header" style={`border-left: 4px solid ${project.color};`}>
-						<h3 class="project-title">{project.title}</h3>
-					</div>
-					
-					<p class="project-description">{project.description}</p>
-					
-					<div class="project-tech">
-						{project.tech.map((tech) => (
-							<span class="tech-badge">{tech}</span>
-						))}
-					</div>
-					
-					{project.link !== '#' && (
-						<a href={project.link} target="_blank" rel="noopener noreferrer" class="project-link">
-							Ver proyecto <i class="fas fa-arrow-right"></i>
-						</a>
-					)}
-				</div>
-			))}
-		</div>
-	</div>
+<section id="work" class="projects-section">
+  <div class="projects-header">
+    <div>
+      <SectionHead
+        cmd="ls ./work --featured"
+        title='Productos de <span class="accent">0 → 100</span>.'
+        titleEn='Products from <span class="accent">0 → 100</span>.'
+        kicker="Nueve proyectos destacados. De plataformas enterprise a herramientas AI open-source."
+        kickerEn="Nine featured projects. From enterprise platforms to AI open-source tools."
+      />
+    </div>
+    <span class="projects-hint">
+      <span class="projects-hint-icon">↔</span> drag to scroll
+    </span>
+  </div>
+
+  <div class="projects-scroll-wrapper">
+    <div id="projects-scroller" class="projects-scroller hide-scrollbar" data-stagger>
+      {PROJECTS.map((project, i) => {
+        const s = statusStyles[project.status];
+        const initials = project.name.split(' ').map(w => w[0]).join('');
+        return (
+          <div class="project-card">
+            {/* Window chrome */}
+            <div class="project-chrome">
+              <span class="project-dot" style="background: #ff5f56" />
+              <span class="project-dot" style="background: #ffbd2e" />
+              <span class="project-dot" style="background: #27c93f" />
+              <div class="project-chrome-title">{project.id}.case — preview</div>
+              <span
+                class="project-status"
+                style={`background: ${s.bg}; color: ${s.fg}; border-color: ${s.border}`}
+              >
+                {s.label}
+              </span>
+            </div>
+
+            {/* Visual placeholder */}
+            <div class="project-visual">
+              <div class="project-visual-grid" />
+              <div class="project-visual-initials">{initials}</div>
+              <div class="project-visual-path">/work/0{i + 1}</div>
+              <div class="project-visual-res">1920×1080</div>
+            </div>
+
+            {/* Body */}
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-tag">{project.tag}</span>
+                <span class="project-year">{project.year}</span>
+              </div>
+
+              <h3 class="project-name">{project.name}</h3>
+              <p class="project-desc"><I18n es={project.desc} en={project.descEn} /></p>
+
+              {/* Stack tags */}
+              <div class="project-stack">
+                {project.stack.map((t) => (
+                  <span class="project-stack-tag">{t}</span>
+                ))}
+              </div>
+
+              {/* Bottom */}
+              <div class="project-bottom">
+                <div class="project-role">
+                  <span class="project-role-label">role: </span>{project.role}
+                </div>
+                {project.url && (
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" class="project-link">
+                    view repo →
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  {/* Progress bar + arrows */}
+  <div class="projects-controls">
+    <div class="projects-controls-row">
+      <button id="projects-prev" class="btn btn-ghost projects-arrow" disabled>◀</button>
+      <div id="projects-track" class="projects-track">
+        <div id="projects-fill" class="projects-fill" />
+      </div>
+      <button id="projects-next" class="btn btn-ghost projects-arrow">▶</button>
+    </div>
+    <div class="projects-info">
+      <span id="projects-counter">01 / 09</span>
+      <span>scroll-snap · x · drag</span>
+    </div>
+  </div>
 </section>
 
 <style>
-	#projects {
-		background: var(--bg-dark);
-	}
+  .projects-section {
+    background: var(--bg-soft);
+    padding: 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
 
-	.section-title {
-		text-align: center;
-		margin-bottom: 4rem;
-		font-size: 2.5rem;
-		color: var(--text-primary);
-	}
+  .projects-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -150px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(121,192,255,0.05), transparent 70%);
+    pointer-events: none;
+    animation: glow-pulse 10s ease-in-out infinite;
+  }
 
-	.projects-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-		gap: 2.5rem;
-	}
+  .projects-header {
+    max-width: 1280px;
+    margin: 0 auto 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+  }
 
-	.project-card {
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-	}
+  .projects-hint {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 60px;
+    white-space: nowrap;
+  }
 
-	.project-header {
-		padding-left: 1rem;
-	}
+  .projects-hint-icon {
+    color: var(--accent);
+  }
 
-	.project-title {
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: var(--text-primary);
-	}
+  .projects-scroll-wrapper {
+    position: relative;
+  }
 
-	.project-description {
-		color: var(--text-secondary);
-		line-height: 1.6;
-	}
+  .projects-scroller {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: visible;
+    padding: 0 32px 32px;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
 
-	.project-tech {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.75rem;
-	}
+  .projects-scroller:active {
+    cursor: grabbing;
+  }
 
-	.tech-badge {
-		padding: 0.5rem 1rem;
-		background: var(--bg-dark);
-		border: 1px solid var(--border-color);
-		border-radius: 2rem;
-		font-size: 0.85rem;
-		color: var(--text-secondary);
-		transition: all 0.3s ease;
-	}
+  /* ── Project Card ── */
+  .project-card {
+    min-width: calc((100% + 24px) / 3);
+    flex: 0 0 calc((100% + 24px) / 3);
+    scroll-snap-align: start;
+    margin: 4px 0;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
 
-	.tech-badge:hover {
-		border-color: var(--accent-purple);
-		color: var(--text-primary);
-	}
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(200, 255, 0, 0.1);
+  }
 
-	.project-link {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		color: var(--accent-purple);
-		font-weight: 600;
-		transition: all 0.3s ease;
-		margin-top: auto;
-	}
+  .project-chrome {
+    background: var(--bg-panel-2);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
 
-	.project-link:hover {
-		gap: 1rem;
-	}
+  .project-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+  }
 
-	.project-link i {
-		transition: transform 0.3s ease;
-	}
+  .project-chrome-title {
+    flex: 1;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-dim);
+  }
 
-	.project-link:hover i {
-		transform: translateX(5px);
-	}
+  .project-status {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid;
+  }
 
-	@media (max-width: 768px) {
-		.projects-grid {
-			grid-template-columns: 1fr;
-		}
+  .project-visual {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(135deg, var(--bg-panel), var(--bg-panel-2)),
+      radial-gradient(circle at 30% 30%, rgba(200, 255, 0, 0.1), transparent 60%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-		.section-title {
-			font-size: 2rem;
-		}
-	}
+  .project-visual-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200, 255, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 255, 0, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .project-visual-initials {
+    font-family: var(--mono);
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--fg);
+    opacity: 0.12;
+    letter-spacing: -2px;
+    position: relative;
+  }
+
+  .project-visual-path {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+  }
+
+  .project-visual-res {
+    position: absolute;
+    bottom: 14px;
+    right: 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+  }
+
+  .project-body {
+    padding: 20px;
+  }
+
+  .project-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .project-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+  }
+
+  .project-year {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+  }
+
+  .project-name {
+    font-family: var(--sans);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .project-desc {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--fg-dim);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .project-stack-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border: 1px solid var(--border-2);
+    color: var(--fg-dim);
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .project-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  .project-role {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-dim);
+  }
+
+  .project-role-label {
+    color: var(--fg-mute);
+  }
+
+  .project-link {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-dim);
+    text-decoration: none;
+    transition: all 200ms ease;
+  }
+
+  .project-card:hover .project-link {
+    color: var(--accent);
+    transform: translateX(4px);
+  }
+
+  /* ── Controls ── */
+  .projects-controls {
+    max-width: 1280px;
+    margin: 16px auto 0;
+    padding: 0 32px;
+  }
+
+  .projects-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .projects-arrow {
+    width: 36px;
+    height: 32px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .projects-arrow:disabled {
+    opacity: 0.3;
+  }
+
+  .projects-track {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .projects-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 16%;
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(200, 255, 0, 0.5);
+    transition: width 120ms ease;
+  }
+
+  .projects-info {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    margin-top: 8px;
+    padding: 0 16px;
+  }
+
+  @media (max-width: 600px) {
+    .projects-section {
+      padding: 80px 0;
+    }
+
+    .projects-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      padding: 0 20px;
+    }
+
+    .projects-hint {
+      margin-bottom: 0;
+    }
+
+    .projects-scroller {
+      padding: 0 20px 24px;
+    }
+
+    .project-card {
+      min-width: calc(100% - 40px);
+      flex: 0 0 calc(100% - 40px);
+    }
+
+    .projects-controls {
+      padding: 0 20px;
+    }
+
+    .projects-info {
+      padding: 0 8px;
+    }
+  }
 </style>
+
+<script>
+  const scroller = document.getElementById('projects-scroller')!;
+  const prevBtn = document.getElementById('projects-prev') as HTMLButtonElement;
+  const nextBtn = document.getElementById('projects-next') as HTMLButtonElement;
+  const fill = document.getElementById('projects-fill')!;
+  const track = document.getElementById('projects-track')!;
+  const counter = document.getElementById('projects-counter')!;
+  const total = scroller.querySelectorAll('.project-card').length;
+
+  function getCardStep() {
+    const card = scroller.querySelector('.project-card') as HTMLElement | null;
+    return (card?.getBoundingClientRect().width ?? 400) + 20;
+  }
+
+  function updateProgress() {
+    const x = scroller.scrollLeft;
+    const max = scroller.scrollWidth - scroller.clientWidth;
+    const pct = max > 0 ? x / max : 0;
+    const baseWidth = (1 / total) * 100;
+    fill.style.width = `${Math.max(12, baseWidth + pct * (100 - baseWidth))}%`;
+    prevBtn.disabled = x < 4;
+    nextBtn.disabled = x >= max - 4;
+    prevBtn.style.opacity = x < 4 ? '0.3' : '1';
+    nextBtn.style.opacity = x >= max - 4 ? '0.3' : '1';
+    const current = Math.min(total, Math.floor(pct * (total - 1)) + 1);
+    counter.textContent = `${String(current).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
+  }
+
+  scroller.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  prevBtn.addEventListener('click', () => {
+    scroller.scrollBy({ left: -getCardStep(), behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    scroller.scrollBy({ left: getCardStep(), behavior: 'smooth' });
+  });
+
+  track.addEventListener('click', (e) => {
+    const r = track.getBoundingClientRect();
+    const pct = (e.clientX - r.left) / r.width;
+    const max = scroller.scrollWidth - scroller.clientWidth;
+    scroller.scrollTo({ left: pct * max, behavior: 'smooth' });
+  });
+
+  // Drag to scroll
+  let down = false;
+  let startX = 0;
+  let startScroll = 0;
+  let moved = false;
+
+  scroller.addEventListener('mousedown', (e) => {
+    down = true;
+    moved = false;
+    startX = e.pageX;
+    startScroll = scroller.scrollLeft;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!down) return;
+    const dx = e.pageX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    scroller.scrollLeft = startScroll - dx;
+  });
+
+  window.addEventListener('mouseup', () => {
+    down = false;
+  });
+
+  scroller.addEventListener('click', (e) => {
+    if (moved) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+</script>

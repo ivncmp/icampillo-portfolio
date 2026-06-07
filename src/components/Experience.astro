@@ -1,192 +1,330 @@
 ---
-const experiences = [
-	{
-		company: 'Fundador y CTO',
-		role: 'Valora Studio',
-		period: '2025 - present',
-		description: 'Socio y responsable tecnológico de Valora Studio, liderando la arquitectura IT de todos los proyectos, incluida la plataforma Web3 5TARS.io. En este rol diseño infraestructuras escalables en la nube, dirijo equipos de desarrollo y tomo decisiones estratégicas sobre el stack tecnológico.'
-	},
-	{
-		company: 'Instructor',
-		role: 'Keep Coding',
-		period: '2023 - present',
-		description: 'Formador en bootcamp de desarrollo blockchain. Enseño a construir y desplegar smart contracts usando Solidity y Web3.js.'
-	},
-	{
-		company: 'Head of Technology',
-		role: 'The Key Talent',
-		period: '2017 - 2022',
-		description: 'Director técnico y líder de producto en la software factory de The Key Talent. Encargado del stack tecnológico, la calidad del código y la coordinación de los equipos de desarrollo.'
-	},
-	{
-		company: 'Lead Software Architect',
-		role: 'BBVA Next',
-		period: '2014 - 2017',
-		description: 'Arquitecto senior de software, responsable de arquitectura tanto en frontend como backend, aplicando patrones de diseño y buenas prácticas.'
-	},
-	{
-		company: 'Software Engineer Team Lead',
-		role: 'Oracle Cerner (UK)',
-		period: '2012 - 2014',
-		description: 'Líder técnico en el sector salud para el NHS británico. Responsable de desarrollo con Java y Eclipse RCP y coordinación de equipo en entorno internacional.'
-	}
-];
+import { EXPERIENCE } from '../data/index';
+import SectionHead from './SectionHead.astro';
+import I18n from './I18n.astro';
+
+const typeColors: Record<string, { bg: string; fg: string; border: string }> = {
+  founder:  { bg: 'rgba(200,255,0,0.1)',  fg: 'var(--accent)',  border: 'rgba(200,255,0,0.4)' },
+  lead:     { bg: 'rgba(210,168,255,0.1)', fg: 'var(--purple)', border: 'rgba(210,168,255,0.4)' },
+  ic:       { bg: 'rgba(121,192,255,0.1)', fg: 'var(--cyan)',   border: 'rgba(121,192,255,0.4)' },
+  teaching: { bg: 'rgba(255,166,87,0.1)',  fg: 'var(--warn)',   border: 'rgba(255,166,87,0.4)' },
+};
+
+const typeLabel: Record<string, string> = {
+  founder: 'FOUNDER',
+  lead: 'LEAD',
+  ic: 'IC',
+  teaching: 'TEACHING',
+};
+
+const COMPANY_LOGOS: Record<string, string> = {};
 ---
 
-<section id="experience">
-	<div class="container">
-		<h2 class="section-title">Puntos clave en mi trayectoria profesional</h2>
-		
-		<div class="timeline">
-			{experiences.map((exp, index) => (
-				<div class="timeline-item" style={`animation-delay: ${index * 0.1}s`}>
-					<div class="timeline-marker">
-						<div class="marker-dot"></div>
-						<div class="marker-line"></div>
-					</div>
-					
-					<div class="timeline-content card">
-						<div class="timeline-header">
-							<div>
-								<h3 class="exp-company">{exp.company}</h3>
-								<h4 class="exp-role">{exp.role}</h4>
-							</div>
-							<span class="exp-period">{exp.period}</span>
-						</div>
-						<p class="exp-description">{exp.description}</p>
-					</div>
-				</div>
-			))}
-		</div>
-	</div>
+<section id="career" class="experience-section">
+  <div class="experience-inner">
+    <SectionHead
+      cmd="git log --author=ivan --oneline"
+      title='Mi <span class="accent">trayectoria</span>.'
+      titleEn='This is my <span class="accent">career</span>.'
+      kicker="Veinte años de software — de satélites ESA a Web3. Ingeniero, arquitecto, CTO y founder."
+      kickerEn="Twenty years of software — from ESA satellites to Web3. Engineer, architect, CTO, and founder."
+    />
+
+    <div class="experience-timeline" data-stagger>
+      {EXPERIENCE.map((exp, i) => {
+        const c = typeColors[exp.type];
+        const isLast = i === EXPERIENCE.length - 1;
+        const [startYear, endYear] = exp.years.split(' — ');
+        return (
+          <div class="exp-row">
+            <!-- Years -->
+            <div class="exp-years">
+              <div class="exp-year-start">{startYear}</div>
+              <div class="exp-year-end">→ {endYear}</div>
+              <div class="exp-year-index">{String(i + 1).padStart(2, '0')} / {String(EXPERIENCE.length).padStart(2, '0')}</div>
+            </div>
+
+            <!-- Timeline rail -->
+            <div class="exp-rail">
+              {!isLast && <div class="exp-rail-line" />}
+              <div
+                class="exp-rail-dot"
+                style={`background: ${c.fg}; box-shadow: 0 0 0 5px var(--bg-soft), 0 0 0 6px ${c.border}, 0 0 18px ${c.border}`}
+              />
+            </div>
+
+            <!-- Card -->
+            <div class="exp-card">
+              <div class="exp-card-logo">
+                {COMPANY_LOGOS[exp.company] ? (
+                  <img src={COMPANY_LOGOS[exp.company]} alt={exp.company} width="40" height="40" loading="lazy" />
+                ) : (
+                  <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="10" width="5" height="22" rx="1.5" fill="currentColor" opacity="0.25"/>
+                    <rect x="10" y="16" width="5" height="16" rx="1.5" fill="currentColor" opacity="0.35"/>
+                    <rect x="18" y="6" width="5" height="28" rx="1.5" fill="currentColor" opacity="0.45"/>
+                    <rect x="26" y="10" width="12" height="20" rx="2.5" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+                  </svg>
+                )}
+              </div>
+              <div class="exp-card-main">
+                <div class="exp-card-top">
+                  <span
+                    class="exp-type-badge"
+                    style={`background: ${c.bg}; color: ${c.fg}; border-color: ${c.border}`}
+                  >
+                    {typeLabel[exp.type]}
+                  </span>
+                  <span class="exp-card-period">· {exp.years}</span>
+                </div>
+                <h3 class="exp-role">{exp.role}</h3>
+                <div class="exp-company">@ {exp.company}</div>
+                <p class="exp-desc"><I18n es={exp.desc} en={exp.descEn} /></p>
+              </div>
+
+              <div class="exp-card-sidebar">
+                <div>
+                  <div class="exp-sidebar-label">▸ focus</div>
+                  <div class="exp-sidebar-tags">
+                    {exp.tags.map((t) => (
+                      <span class="exp-tag">{t}</span>
+                    ))}
+                  </div>
+                </div>
+                <div class="exp-sidebar-type">
+                  <div class="exp-sidebar-label">▸ type</div>
+                  <div class="exp-sidebar-type-val" style={`color: ${c.fg}`}>
+                    {exp.type}()
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
 </section>
 
 <style>
-	#experience {
-		background: var(--bg-dark);
-	}
+  .experience-section {
+    padding: 120px 32px;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
 
-	.section-title {
-		text-align: center;
-		margin-bottom: 4rem;
-		font-size: 2.5rem;
-		color: var(--text-primary);
-	}
+  .experience-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
 
-	.timeline {
-		max-width: 900px;
-		margin: 0 auto;
-		position: relative;
-	}
+  .exp-row {
+    display: grid;
+    grid-template-columns: 160px 40px 1fr;
+    gap: 28px;
+    padding-bottom: 36px;
+    position: relative;
+  }
 
-	.timeline-item {
-		display: grid;
-		grid-template-columns: 80px 1fr;
-		gap: 2rem;
-		margin-bottom: 3rem;
-		opacity: 0;
-		animation: slideInLeft 0.6s forwards;
-	}
+  .exp-row:last-child { padding-bottom: 0; }
 
-	.timeline-marker {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
+  .exp-years {
+    padding-top: 6px;
+    text-align: right;
+  }
 
-	.marker-dot {
-		width: 16px;
-		height: 16px;
-		background: var(--accent-purple);
-		border-radius: 50%;
-		box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-		z-index: 1;
-		flex-shrink: 0;
-	}
+  .exp-year-start {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
 
-	.marker-line {
-		width: 2px;
-		flex: 1;
-		background: linear-gradient(to bottom, var(--accent-purple), transparent);
-		margin-top: 0.5rem;
-	}
+  .exp-year-end {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+    margin-top: 4px;
+  }
 
-	.timeline-item:last-child .marker-line {
-		display: none;
-	}
+  .exp-year-index {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    margin-top: 12px;
+  }
 
-	.timeline-content {
-		min-height: 150px;
-	}
+  .exp-rail {
+    position: relative;
+  }
 
-	.timeline-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-start;
-		margin-bottom: 1rem;
-		gap: 1rem;
-	}
+  .exp-rail-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: -36px;
+    width: 1px;
+    background: var(--border-2);
+    transform: translateX(-0.5px);
+  }
 
-	.exp-company {
-		font-size: 1.4rem;
-		font-weight: 700;
-		color: var(--text-primary);
-		margin-bottom: 0.25rem;
-	}
+  .exp-row:last-child .exp-rail-line {
+    display: none;
+  }
 
-	.exp-role {
-		font-size: 1.1rem;
-		font-weight: 500;
-		color: var(--accent-purple);
-	}
+  .exp-rail-dot {
+    position: relative;
+    z-index: 1;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    margin: 10px auto 0;
+  }
 
-	.exp-period {
-		padding: 0.5rem 1rem;
-		background: var(--bg-dark);
-		border: 1px solid var(--border-color);
-		border-radius: 2rem;
-		font-size: 0.9rem;
-		color: var(--text-secondary);
-		white-space: nowrap;
-	}
+  .exp-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 72px 1fr 260px;
+    overflow: hidden;
+  }
 
-	.exp-description {
-		color: var(--text-secondary);
-		line-height: 1.7;
-	}
+  .exp-card-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    color: var(--fg-dim);
+  }
 
-	@keyframes slideInLeft {
-		from {
-			opacity: 0;
-			transform: translateX(-50px);
-		}
-		to {
-			opacity: 1;
-			transform: translateX(0);
-		}
-	}
+  .exp-card-logo svg {
+    width: 40px;
+    height: 40px;
+  }
 
-	@media (max-width: 768px) {
-		.timeline-item {
-			grid-template-columns: 50px 1fr;
-			gap: 1rem;
-		}
+  .exp-card-logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 6px;
+  }
 
-		.section-title {
-			font-size: 1.75rem;
-		}
+  .exp-card-main { padding: 24px; }
 
-		.exp-company {
-			font-size: 1.2rem;
-		}
+  .exp-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
 
-		.timeline-header {
-			flex-direction: column;
-		}
+  .exp-type-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
 
-		.exp-period {
-			align-self: flex-start;
-		}
-	}
+  .exp-card-period {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+  }
+
+  .exp-role {
+    font-family: var(--display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.6px;
+    line-height: 1.1;
+  }
+
+  .exp-company {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin-top: 6px;
+  }
+
+  .exp-desc {
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--fg-dim);
+    line-height: 1.6;
+    margin-top: 16px;
+    max-width: 560px;
+  }
+
+  .exp-card-sidebar {
+    padding: 24px;
+    border-left: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .exp-sidebar-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .exp-sidebar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .exp-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border: 1px solid var(--border-2);
+    color: var(--fg-dim);
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .exp-sidebar-type { margin-top: auto; }
+
+  .exp-sidebar-type-val {
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .exp-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .exp-years { text-align: left; display: flex; gap: 12px; align-items: baseline; }
+    .exp-year-index { margin-top: 0; }
+    .exp-rail { display: none; }
+
+    .exp-card {
+      grid-template-columns: 56px 1fr;
+    }
+
+    .exp-card-sidebar {
+      grid-column: 1 / -1;
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+  }
 </style>

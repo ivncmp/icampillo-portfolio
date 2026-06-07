@@ -1,323 +1,309 @@
 ---
+import { CONTACT } from '../data/index';
+
+const channels = CONTACT.channels;
 ---
 
-<section id="contact">
-	<div class="container">
-		<div class="contact-grid">
-			<!-- Left: Title + Blob -->
-			<div class="contact-left">
-				<h2 class="contact-title">¿Quieres trabajar conmigo?</h2>
-				<div class="blob-container">
-					<div class="blob"></div>
-				</div>
-			</div>
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-grid">
+      <!-- Left: CTA + channels -->
+      <div data-reveal="left">
+        <div class="contact-cmd">
+          <span class="contact-cmd-dollar">$</span> ./contact.sh
+        </div>
 
-			<!-- Right: Form -->
-			<div class="contact-right">
-				<form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-					<input type="hidden" name="form-name" value="contact" />
-					<input type="hidden" name="bot-field" />
-					
-					<div class="form-row">
-						<div class="form-group">
-							<input type="text" name="name" placeholder="Nombre" required class="form-input" />
-						</div>
-						<div class="form-group">
-							<input type="email" name="email" placeholder="Email" required class="form-input" />
-						</div>
-					</div>
+        <h2 class="contact-title">
+          <span data-lang="es">¿<span class="contact-title-accent">Hablamos</span>?</span>
+          <span data-lang="en">Do you want to <span class="contact-title-accent">talk</span>?</span>
+        </h2>
 
-					<div class="form-group">
-						<input type="text" name="subject" placeholder="Asunto" required class="form-input" />
-					</div>
+        <p class="contact-subtitle">
+          <span data-lang="es">Consultoría selectiva, fractional CTO y arquitectura para proyectos serios. Respuesta en menos de 24h.</span>
+          <span data-lang="en">Selective consulting, fractional CTO, and architecture for serious projects. Response in under 24h.</span>
+        </p>
 
-					<div class="form-group">
-						<textarea name="message" placeholder="Mensaje" rows="5" required class="form-input"></textarea>
-					</div>
+        <div class="contact-channels">
+          {channels.map((c) => (
+            <a href={c.url} class="contact-channel">
+              <span class="contact-channel-icon">{c.icon}</span>
+              <span class="contact-channel-label">{c.label}</span>
+              <span class="contact-channel-value">{c.value}</span>
+              <span class="contact-channel-arrow">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
 
-					<button type="submit" class="submit-btn">
-						<span>ENVIAR</span>
-						<i class="fas fa-paper-plane"></i>
-					</button>
-				</form>
-			</div>
-		</div>
-	</div>
+      <!-- Right: form -->
+      <div class="contact-form-window" data-reveal="right">
+        <div class="contact-form-chrome">
+          <span class="contact-form-dot" style="background: #ff5f56" />
+          <span class="contact-form-dot" style="background: #ffbd2e" />
+          <span class="contact-form-dot" style="background: #27c93f" />
+          <div class="contact-form-chrome-title">new-message.sh</div>
+        </div>
+
+        <div class="contact-form-body">
+          <div class="contact-form-init">
+            <div><span class="contact-form-init-dollar">$</span> <span class="contact-form-init-cmd">./contact --new</span></div>
+            <div class="contact-form-init-mute">initializing form...</div>
+            <div class="contact-form-init-ok">✓ ready · please fill in below</div>
+          </div>
+
+          <div class="contact-field">
+            <div class="contact-field-label">
+              <span class="contact-field-prompt">&gt;</span> name:
+            </div>
+            <input type="text" placeholder="Jane Doe" class="contact-input" />
+          </div>
+
+          <div class="contact-field">
+            <div class="contact-field-label">
+              <span class="contact-field-prompt">&gt;</span> email:
+            </div>
+            <input type="email" placeholder="jane@company.com" class="contact-input" />
+          </div>
+
+          <div class="contact-field">
+            <div class="contact-field-label">
+              <span class="contact-field-prompt">&gt;</span> message:
+            </div>
+            <textarea data-lang="es" placeholder="Quiero llevar X de 0 a 100..." rows={5} class="contact-input contact-textarea" />
+            <textarea data-lang="en" placeholder="I want to take X from 0 to 100..." rows={5} class="contact-input contact-textarea" />
+          </div>
+
+          <button class="contact-submit">▸ ./send-message</button>
+
+          <div class="contact-tip">
+            tip: press <span class="contact-tip-key">⌘+↵</span> to send
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<footer>
-	<div class="container">
-		<div class="footer-content">
-			<div class="footer-left">
-				<h3 class="pixel-font footer-brand">IVÁN CAMPILLO</h3>
-				<p class="footer-tagline">Desde la nube hasta la Blockchain, trabajando con tecnologías modernas, centradas en la performance y la escalabilidad</p>
-				
-				<div class="footer-social">
-					<a href="mailto:hello@icampillo.com" aria-label="Email">
-						<i class="fas fa-envelope"></i>
-					</a>
-					<a href="https://www.linkedin.com/in/ivancampillo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-						<i class="fab fa-linkedin"></i>
-					</a>
-					<a href="https://github.com/ivncmp" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-						<i class="fab fa-github"></i>
-					</a>
-				</div>
-			</div>
-
-			<div class="footer-right">
-				<h4 class="footer-tech-title">Tech Stack</h4>
-				<div class="tech-icons">
-					<div class="tech-icon" title="React"><i class="fab fa-react"></i></div>
-					<div class="tech-icon" title="Node.js"><i class="fab fa-node-js"></i></div>
-					<div class="tech-icon" title="AWS"><i class="fab fa-aws"></i></div>
-					<div class="tech-icon" title="Docker"><i class="fab fa-docker"></i></div>
-					<div class="tech-icon" title="Python"><i class="fab fa-python"></i></div>
-					<div class="tech-icon" title="JavaScript"><i class="fab fa-js"></i></div>
-					<div class="tech-icon" title="Git"><i class="fab fa-git-alt"></i></div>
-					<div class="tech-icon" title="Angular"><i class="fab fa-angular"></i></div>
-				</div>
-			</div>
-		</div>
-
-		<div class="footer-bottom">
-			<p>&copy; {new Date().getFullYear()} Iván Campillo. Todos los derechos reservados.</p>
-		</div>
-	</div>
-</footer>
-
 <style>
-	#contact {
-		background: linear-gradient(135deg, var(--accent-purple) 0%, #7c3aed 100%);
-		color: white;
-		position: relative;
-		overflow: hidden;
-	}
+  .contact-section {
+    background: var(--bg-soft);
+    padding: 140px 32px 120px;
+    position: relative;
+    overflow: hidden;
+  }
 
-	.contact-grid {
-		display: grid;
-		grid-template-columns: 1fr 1.2fr;
-		gap: 4rem;
-		align-items: center;
-	}
+  .contact-section::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(200,255,0,0.06), transparent 65%);
+    pointer-events: none;
+    animation: glow-pulse 10s ease-in-out infinite;
+  }
 
-	.contact-title {
-		font-size: 3rem;
-		margin-bottom: 2rem;
-		line-height: 1.2;
-	}
+  .contact-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
 
-	.blob-container {
-		position: relative;
-		width: 300px;
-		height: 300px;
-	}
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    align-items: flex-start;
+  }
 
-	.blob {
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(59, 130, 246, 0.3));
-		border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-		animation: morphBlob 8s ease-in-out infinite;
-		filter: blur(40px);
-	}
+  .contact-cmd {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 1px solid rgba(200, 255, 0, 0.3);
+    border-radius: 4px;
+    background: rgba(200, 255, 0, 0.05);
+    margin-bottom: 24px;
+  }
 
-	@keyframes morphBlob {
-		0%, 100% {
-			border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-		}
-		34% {
-			border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%;
-		}
-		67% {
-			border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
-		}
-	}
+  .contact-cmd-dollar { color: var(--fg-dim); }
 
-	.contact-form {
-		background: rgba(255, 255, 255, 0.1);
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		border-radius: 1rem;
-		padding: 2.5rem;
-	}
+  .contact-title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 0.95;
+    letter-spacing: 0;
+    color: var(--fg);
+    text-wrap: balance;
+  }
 
-	.form-row {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-		margin-bottom: 1rem;
-	}
+  .contact-title-accent { color: var(--accent); }
 
-	.form-group {
-		margin-bottom: 1rem;
-	}
+  .contact-subtitle {
+    font-family: var(--sans);
+    font-size: 19px;
+    color: var(--fg-dim);
+    line-height: 1.5;
+    margin-top: 24px;
+    max-width: 520px;
+  }
 
-	.form-input {
-		width: 100%;
-		padding: 1rem;
-		background: rgba(255, 255, 255, 0.1);
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		border-radius: 0.5rem;
-		color: white;
-		font-size: 1rem;
-		font-family: 'Work Sans', sans-serif;
-		transition: all 0.3s ease;
-	}
+  .contact-channels {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 440px;
+  }
 
-	.form-input::placeholder {
-		color: rgba(255, 255, 255, 0.6);
-	}
+  .contact-channel {
+    background: var(--bg-elev);
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 24px 80px 1fr 20px;
+    gap: 14px;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    transition: background 120ms ease;
+  }
 
-	.form-input:focus {
-		outline: none;
-		border-color: rgba(255, 255, 255, 0.5);
-		background: rgba(255, 255, 255, 0.15);
-	}
+  .contact-channel:hover { background: var(--bg-panel-2); }
+  .contact-channel-icon { color: var(--accent); }
+  .contact-channel-label { color: var(--fg-mute); }
+  .contact-channel-value { color: var(--fg); }
+  .contact-channel-arrow { color: var(--fg-mute); }
 
-	textarea.form-input {
-		resize: vertical;
-		min-height: 120px;
-	}
+  /* ── Form window ── */
+  .contact-form-window {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  }
 
-	.submit-btn {
-		width: 100%;
-		padding: 1.2rem;
-		background: white;
-		color: var(--accent-purple);
-		border: none;
-		border-radius: 0.5rem;
-		font-size: 1.1rem;
-		font-weight: 700;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.75rem;
-		transition: all 0.3s ease;
-	}
+  .contact-form-chrome {
+    background: var(--bg-panel-2);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--border-2);
+  }
 
-	.submit-btn:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-	}
+  .contact-form-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+  }
 
-	/* Footer */
-	footer {
-		background: #0a0a0a;
-		color: white;
-		padding: 4rem 0 2rem;
-	}
+  .contact-form-chrome-title {
+    flex: 1;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-dim);
+  }
 
-	.footer-content {
-		display: grid;
-		grid-template-columns: 1.5fr 1fr;
-		gap: 4rem;
-		margin-bottom: 3rem;
-		padding-bottom: 3rem;
-		border-bottom: 1px solid var(--border-color);
-	}
+  .contact-form-body { padding: 24px; }
 
-	.footer-brand {
-		font-size: 2rem;
-		letter-spacing: 2px;
-		margin-bottom: 1rem;
-		color: var(--accent-purple);
-	}
+  .contact-form-init {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--fg-mute);
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
 
-	.footer-tagline {
-		color: var(--text-secondary);
-		line-height: 1.7;
-		margin-bottom: 2rem;
-	}
+  .contact-form-init-dollar { color: var(--accent-2); }
+  .contact-form-init-cmd { color: var(--fg); }
+  .contact-form-init-mute { color: var(--fg-mute); }
+  .contact-form-init-ok { color: var(--accent-2); }
 
-	.footer-social {
-		display: flex;
-		gap: 1rem;
-	}
+  .contact-field { margin-bottom: 14px; }
 
-	.footer-social a {
-		width: 40px;
-		height: 40px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: var(--bg-card);
-		border: 1px solid var(--border-color);
-		border-radius: 50%;
-		font-size: 1.1rem;
-		transition: all 0.3s ease;
-	}
+  .contact-field-label {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--fg-dim);
+    margin-bottom: 6px;
+  }
 
-	.footer-social a:hover {
-		background: var(--accent-purple);
-		border-color: var(--accent-purple);
-		transform: translateY(-3px);
-	}
+  .contact-field-prompt { color: var(--accent); }
 
-	.footer-tech-title {
-		font-size: 1.2rem;
-		margin-bottom: 1.5rem;
-		color: var(--text-primary);
-	}
+  .contact-input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border-2);
+    border-radius: 4px;
+    padding: 10px 12px;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--fg);
+    outline: none;
+    transition: border-color 120ms ease;
+  }
 
-	.tech-icons {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 1rem;
-	}
+  .contact-input:focus { border-color: var(--accent); }
+  .contact-input::placeholder { color: var(--fg-mute); }
 
-	.tech-icon {
-		width: 60px;
-		height: 60px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: var(--bg-card);
-		border: 1px solid var(--border-color);
-		border-radius: 0.5rem;
-		font-size: 1.8rem;
-		color: var(--text-secondary);
-		transition: all 0.3s ease;
-		cursor: help;
-	}
+  .contact-textarea { resize: vertical; }
 
-	.tech-icon:hover {
-		color: var(--accent-purple);
-		border-color: var(--accent-purple);
-		transform: translateY(-5px);
-	}
+  .contact-submit {
+    width: 100%;
+    margin-top: 10px;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 120ms ease;
+  }
 
-	.footer-bottom {
-		text-align: center;
-		color: var(--text-secondary);
-		font-size: 0.9rem;
-	}
+  .contact-submit:hover { transform: translateY(-1px); }
 
-	@media (max-width: 968px) {
-		.contact-grid {
-			grid-template-columns: 1fr;
-		}
+  .contact-tip {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    margin-top: 12px;
+    text-align: center;
+  }
 
-		.contact-title {
-			font-size: 2rem;
-		}
+  .contact-tip-key { color: var(--accent); }
 
-		.blob-container {
-			display: none;
-		}
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
 
-		.form-row {
-			grid-template-columns: 1fr;
-		}
-
-		.footer-content {
-			grid-template-columns: 1fr;
-			gap: 2rem;
-		}
-
-		.tech-icons {
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
+  @media (max-width: 600px) {
+    .contact-section { padding: 80px 20px; }
+  }
 </style>

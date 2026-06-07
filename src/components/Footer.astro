@@ -1,0 +1,237 @@
+---
+import { BIO, CONTACT, SITE } from '../data/index';
+
+const sitemapLinks = SITE.sections;
+const elsewhereLinks = ['github', 'linkedin', 'twitter/x', 'bluesky', 'rss'];
+const metaLinks = ['colophon', 'uses', 'now', 'changelog', 'legal'];
+---
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div>
+        <div class="footer-brand">
+          <span class="footer-brand-badge">ic</span>
+          <span class="footer-brand-name">
+            icampillo<span class="footer-brand-tld">.com</span>
+          </span>
+        </div>
+        <p class="footer-desc">
+          <span data-lang="es">Cloud Architect & Head of Technology con más de 20 años de experiencia impulsando innovación en España, UK y EAU. Apasionado por la tecnología para resolver retos de negocio complejos y crear soluciones de impacto.</span>
+          <span data-lang="en">Highly accomplished Cloud Architect & Head of Technology with 20+ years of experience driving innovation in Spain, UK and the UAE. Passionate about leveraging technology to solve complex business challenges and create impactful solutions.</span>
+        </p>
+        <div class="footer-available">
+          <span class="footer-available-dot" />
+          let's talk about software
+        </div>
+      </div>
+
+      <!-- Sitemap -->
+      <div>
+        <div class="footer-col-title">./sitemap</div>
+        <div class="footer-col-links">
+          {sitemapLinks.map((item) => (
+            <a href={`#${item === 'whoami' ? 'top' : item}`} class="footer-link">{item}</a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Elsewhere -->
+      <div>
+        <div class="footer-col-title">./elsewhere</div>
+        <div class="footer-col-links">
+          {elsewhereLinks.map((item) => (
+            <a href="#" class="footer-link">{item}</a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Meta -->
+      <div>
+        <div class="footer-col-title">./meta</div>
+        <div class="footer-col-links">
+          {metaLinks.map((item) => (
+            <a href="#" class="footer-link">{item}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="footer-signature">CONSTANTLY BUILDING THINGS</div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <div>© 2026 {BIO.name} · built with <span class="footer-heart">♥</span> in Madrid</div>
+      <div class="footer-bottom-right">
+        <span>v{SITE.version}</span>
+        <span>last push: 2d ago</span>
+        <span class="footer-status">● status: all systems go</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+    padding: 60px 32px 40px;
+    position: relative;
+  }
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 60px;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .footer-brand-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .footer-brand-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .footer-brand-tld { color: var(--fg-mute); }
+
+  .footer-desc {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--fg-dim);
+    line-height: 1.55;
+    max-width: 320px;
+  }
+
+  .footer-available {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(126, 231, 135, 0.08);
+    border: 1px solid rgba(126, 231, 135, 0.25);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent-2);
+    margin-top: 16px;
+  }
+
+  .footer-available-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--accent-2);
+    box-shadow: 0 0 6px var(--accent-2);
+  }
+
+  .footer-col-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .footer-col-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-link {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--fg-dim);
+    transition: color 120ms ease;
+  }
+
+  .footer-link:hover { color: var(--accent); }
+
+  .footer-signature {
+    font-family: var(--display);
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.08;
+    text-align: center;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 40px;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .footer-bottom {
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+  }
+
+  .footer-heart { color: var(--red); }
+
+  .footer-bottom-right {
+    display: flex;
+    gap: 20px;
+  }
+
+  .footer-status { color: var(--accent-2); }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .footer { padding: 40px 20px 30px; }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+    }
+
+    .footer-bottom-right {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+  }
+</style>

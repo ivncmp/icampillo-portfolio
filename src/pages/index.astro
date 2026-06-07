@@ -1,16 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
-import WhatIDo from '../components/WhatIDo.astro';
+import IDE from '../components/ide/IDE';
+import Services from '../components/Services.astro';
+import MetricsStrip from '../components/MetricsStrip.astro';
 import Projects from '../components/Projects.astro';
+import Stack from '../components/Stack.astro';
 import Experience from '../components/Experience.astro';
+import OSS from '../components/OSS.astro';
 import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Iván Campillo - Software Architect">
-	<Hero />
-	<WhatIDo />
-	<Projects />
-	<Experience />
-	<Contact />
+  <Nav />
+  <Hero />
+  <Services />
+  <MetricsStrip />
+  <Projects />
+  <Stack />
+  <Experience />
+  <OSS />
+  <Contact />
+  <Footer />
 </Layout>

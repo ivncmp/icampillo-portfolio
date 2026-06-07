@@ -1,0 +1,30 @@
+:root {
+  /* Backgrounds */
+  --bg:          #0a0a0a;
+  --bg-soft:     #0f0f0f;
+  --bg-elev:     #141414;
+  --bg-panel:    #0d1117;
+  --bg-panel-2:  #161b22;
+
+  /* Borders */
+  --border:      #1f2328;
+  --border-2:    #30363d;
+
+  /* Foregrounds */
+  --fg:          #e8e8e8;
+  --fg-dim:      #8b949e;
+  --fg-mute:     #6e7681;
+
+  /* Accent colors */
+  --accent:      #c8ff00;
+  --accent-2:    #7ee787;
+  --warn:        #ffa657;
+  --red:         #ff7b72;
+  --cyan:        #79c0ff;
+  --purple:      #d2a8ff;
+
+  /* Typography — using @fontsource-variable (self-hosted) */
+  --sans:    'Figtree Variable', system-ui, -apple-system, sans-serif;
+  --display: 'Space Grotesk Variable', system-ui, sans-serif;
+  --mono:    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

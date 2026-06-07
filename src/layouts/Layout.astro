@@ -1,6 +1,9 @@
 ---
+import '../styles/globals.css';
+import BootLoader from '../components/BootLoader.astro';
+
 interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props;
@@ -8,147 +11,69 @@ const { title } = Astro.props;
 
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Cloud & Blockchain Architect con más de 20 años de experiencia internacional liderando equipos, desarrollando infraestructuras escalables y creando soluciones tecnológicas innovadoras" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-		
-		<!-- Font: VT323 (pixel font) + Work Sans -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=VT323&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-		
-		<!-- Font Awesome -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/brand/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/brand/favicon.svg" />
+    <link rel="shortcut icon" href="/brand/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon.png" />
+    <link rel="manifest" href="/brand/site.webmanifest" />
+    <meta name="theme-color" content="#c4fa03" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content="Iván Campillo — Cloud Architect & Head of Technology with 20+ years of experience driving innovation. Scalable cloud solutions, Web3, blockchain, and SaaS platforms." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Cloud Architect & Head of Technology with 20+ years driving innovation in Spain, UK and the UAE." />
+    <meta property="og:image" content="https://icampillo.com/og-image.png" />
+    <meta property="og:url" content="https://icampillo.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content="Cloud Architect & Head of Technology with 20+ years driving innovation in Spain, UK and the UAE." />
+    <meta name="twitter:image" content="https://icampillo.com/og-image.png" />
+    <title>{title}</title>
+    <script is:inline>
+      (function() {
+        var stored = localStorage.getItem('lang');
+        var lang = stored || (navigator.language.startsWith('es') ? 'es' : 'en');
+        document.documentElement.lang = lang;
+      })();
+    </script>
+    <style>
+      body { visibility: hidden; }
+      body.ready { visibility: visible; }
+    </style>
+  </head>
+  <body class="scanlines grain">
+    <BootLoader />
+    <slot />
+    <script is:inline>document.body.classList.add('ready');</script>
+    <script is:inline>
+      (function() {
+        var btn = document.getElementById('lang-toggle');
+        if (btn) {
+          btn.addEventListener('click', function() {
+            var next = document.documentElement.lang === 'es' ? 'en' : 'es';
+            document.documentElement.lang = next;
+            localStorage.setItem('lang', next);
+          });
+        }
+      })();
+    </script>
+    <script is:inline>
+      (function() {
+        var obs = new IntersectionObserver(function(entries) {
+          entries.forEach(function(e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              obs.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('[data-reveal],[data-stagger]').forEach(function(el) {
+          obs.observe(el);
+        });
+      })();
+    </script>
+  </body>
 </html>
-
-<style is:global>
-	:root {
-		--bg-dark: #0a0a0a;
-		--bg-card: #1a1a1a;
-		--text-primary: #ffffff;
-		--text-secondary: #a0a0a0;
-		--accent-purple: #a855f7;
-		--accent-green: #10b981;
-		--accent-blue: #3b82f6;
-		--border-color: #2a2a2a;
-	}
-
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-
-	html {
-		scroll-behavior: smooth;
-	}
-
-	body {
-		font-family: 'Work Sans', sans-serif;
-		color: var(--text-primary);
-		background: var(--bg-dark);
-		line-height: 1.6;
-	}
-
-	.pixel-font {
-		font-family: 'VT323', monospace;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 0 2rem;
-	}
-
-	section {
-		padding: 6rem 0;
-	}
-
-	h1, h2, h3, h4, h5, h6 {
-		font-weight: 600;
-		line-height: 1.2;
-	}
-
-	h1 {
-		font-size: 4rem;
-	}
-
-	h2 {
-		font-size: 2.5rem;
-	}
-
-	h3 {
-		font-size: 1.75rem;
-	}
-
-	a {
-		text-decoration: none;
-		color: inherit;
-		transition: all 0.3s ease;
-	}
-
-	button, .btn {
-		cursor: pointer;
-		border: none;
-		background: var(--accent-purple);
-		color: white;
-		padding: 1rem 2rem;
-		border-radius: 0.5rem;
-		font-size: 1rem;
-		font-weight: 500;
-		transition: all 0.3s ease;
-		font-family: 'Work Sans', sans-serif;
-	}
-
-	button:hover, .btn:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 10px 25px rgba(168, 85, 247, 0.3);
-	}
-
-	.gradient-text {
-		background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.card {
-		background: var(--bg-card);
-		border: 1px solid var(--border-color);
-		border-radius: 1rem;
-		padding: 2rem;
-		transition: all 0.3s ease;
-	}
-
-	.card:hover {
-		border-color: var(--accent-purple);
-		box-shadow: 0 10px 40px rgba(168, 85, 247, 0.2);
-		transform: translateY(-5px);
-	}
-
-	@media (max-width: 768px) {
-		h1 {
-			font-size: 2.5rem;
-		}
-
-		h2 {
-			font-size: 1.75rem;
-		}
-
-		section {
-			padding: 4rem 0;
-		}
-
-		.container {
-			padding: 0 1rem;
-		}
-	}
-</style>

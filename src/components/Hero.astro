@@ -1,258 +1,296 @@
 ---
+import { BIO } from '../data/index';
+import IDE from './ide/IDE';
 ---
 
-<section id="hero">
-	<div class="container">
-		<div class="hero-grid">
-			<!-- Left: Info -->
-			<div class="hero-left">
-				<h1 class="pixel-font hero-title">IVÁN CAMPILLO</h1>
-				
-				<div class="role-list">
-					<div class="role-item">
-						<span class="bullet">→</span> Software Engineer
-					</div>
-					<div class="role-item">
-						<span class="bullet">→</span> Cloud Architecture
-					</div>
-					<div class="role-item">
-						<span class="bullet">→</span> Full Stack Development
-					</div>
-				</div>
+<section id="top" class="hero">
+  <!-- Photo background -->
+  <div class="hero-photo" />
+  <!-- Dark tint -->
+  <div class="hero-tint" />
+  <!-- Left vignette for text legibility -->
+  <div class="hero-vignette" />
+  <!-- Bottom fade to bg -->
+  <div class="hero-bottom-fade" />
+  <!-- Decorative lime glow -->
+  <div class="hero-glow" />
 
-				<div class="social-links">
-					<a href="https://www.linkedin.com/in/ivancampillo/" target="_blank" rel="noopener noreferrer" class="social-btn">
-						<i class="fab fa-linkedin"></i>
-					</a>
-					<a href="https://github.com/ivncmp" target="_blank" rel="noopener noreferrer" class="social-btn">
-						<i class="fab fa-github"></i>
-					</a>
-					<a href="mailto:hello@icampillo.com" class="social-btn">
-						<i class="fas fa-envelope"></i>
-					</a>
-				</div>
-			</div>
+  <div class="hero-content">
 
-			<!-- Right: Avatar + Description -->
-			<div class="hero-right">
-				<div class="avatar-container">
-					<div class="avatar-glow"></div>
-					<img src="/avatar.png" alt="Iván Campillo Avatar" class="avatar" />
-				</div>
-				
-				<div class="description-box">
-					<p>
-						Cloud & Blockchain Architect con más de 20 años de experiencia internacional 
-						liderando equipos, desarrollando infraestructuras escalables y creando soluciones 
-						tecnológicas innovadoras en España, UK y Dubái.
-					</p>
-					<a href="#contact" class="cta-btn">
-						<span>CONTÁCTAME</span>
-						<i class="fas fa-arrow-right"></i>
-					</a>
-				</div>
-			</div>
-		</div>
-	</div>
+    <!-- Prompt line -->
+    <div class="hero-prompt">
+      <span class="hero-prompt-user">ivan</span>
+      <span class="hero-prompt-host">@portfolio</span>
+      <span class="hero-prompt-sep">:</span>
+      <span class="hero-prompt-path">~</span>
+      <span class="hero-prompt-dollar">$ </span>
+      <span class="hero-prompt-cmd">cat whoami.md</span>
+    </div>
+
+    <!-- Display name -->
+    <h1 class="hero-name">
+      Iván <span class="hero-name-accent">Campillo</span>
+    </h1>
+
+    <!-- Typing roles -->
+    <div class="hero-roles">
+      <span class="hero-roles-prefix">&gt; role:</span>
+      <span id="typing-text" class="hero-roles-value"></span>
+      <span class="hero-cursor" />
+    </div>
+
+    <!-- CTAs -->
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary">
+        <span>▸</span> start a project
+      </a>
+      <a href="#work" class="btn btn-ghost">
+        <span class="hero-cta-prefix">./</span>view work
+      </a>
+      <a href="#oss" class="btn btn-ghost">
+        <span>⎇</span> github
+      </a>
+    </div>
+
+    <div class="ide-section">
+      <IDE client:load />
+    </div>
+
+  </div>
 </section>
 
 <style>
-	#hero {
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
-		background: var(--bg-dark);
-		position: relative;
-		overflow: hidden;
-	}
+  .hero {
+    position: relative;
+    padding: 140px 32px 40px;
+    overflow: hidden;
+    min-height: 720px;
+  }
 
-	#hero::before {
-		content: '';
-		position: absolute;
-		top: -50%;
-		right: -20%;
-		width: 800px;
-		height: 800px;
-		background: radial-gradient(circle, rgba(168, 85, 247, 0.15), transparent 70%);
-		border-radius: 50%;
-		animation: float 20s ease-in-out infinite;
-	}
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://icampillo.com/wp-content/uploads/2025/06/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.95;
+  }
 
-	#hero::after {
-		content: '';
-		position: absolute;
-		bottom: -30%;
-		left: -10%;
-		width: 600px;
-		height: 600px;
-		background: radial-gradient(circle, rgba(16, 185, 129, 0.1), transparent 70%);
-		border-radius: 50%;
-		animation: float 15s ease-in-out infinite reverse;
-	}
+  .hero-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(10, 10, 10, 0.25) 0%,
+      rgba(10, 10, 10, 0.15) 40%,
+      rgba(10, 10, 10, 0.75) 100%
+    );
+    pointer-events: none;
+  }
 
-	@keyframes float {
-		0%, 100% { transform: translateY(0) scale(1); }
-		50% { transform: translateY(-50px) scale(1.05); }
-	}
+  .hero-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 55% 70% at 20% 50%,
+      rgba(10, 10, 10, 0.75),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
 
-	.hero-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 4rem;
-		align-items: center;
-		position: relative;
-		z-index: 1;
-	}
+  .hero-bottom-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(180deg, transparent, var(--bg) 80%);
+    pointer-events: none;
+  }
 
-	.hero-title {
-		font-size: 4rem;
-		letter-spacing: 4px;
-		margin-bottom: 2rem;
-		color: var(--text-primary);
-		text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
-	}
+  .hero-glow {
+    position: absolute;
+    left: 50%;
+    top: 120px;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(200, 255, 0, 0.12), transparent 70%);
+    pointer-events: none;
+    filter: blur(40px);
+    animation: float 6s ease-in-out infinite;
+  }
 
-	.role-list {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		margin-bottom: 2.5rem;
-	}
+  .hero-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+  }
 
-	.role-item {
-		display: flex;
-		align-items: center;
-		gap: 1rem;
-		font-size: 1.2rem;
-		font-weight: 500;
-		color: var(--text-secondary);
-		transition: all 0.3s ease;
-	}
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(126, 231, 135, 0.08);
+    border: 1px solid rgba(126, 231, 135, 0.25);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent-2);
+    margin-bottom: 28px;
+  }
 
-	.role-item:hover {
-		color: var(--text-primary);
-		transform: translateX(10px);
-	}
+  .hero-badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--accent-2);
+    box-shadow: 0 0 8px var(--accent-2);
+    animation: pulse 2s ease-in-out infinite;
+  }
 
-	.bullet {
-		color: var(--accent-purple);
-		font-size: 1.5rem;
-	}
+  .hero-prompt {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--fg-dim);
+    margin-bottom: 20px;
+  }
 
-	.social-links {
-		display: flex;
-		gap: 1rem;
-	}
+  .hero-prompt-user { color: var(--accent-2); }
+  .hero-prompt-host { color: var(--fg-mute); }
+  .hero-prompt-sep { color: var(--fg-mute); }
+  .hero-prompt-path { color: var(--cyan); }
+  .hero-prompt-dollar { color: var(--fg-mute); }
+  .hero-prompt-cmd { color: var(--fg); }
 
-	.social-btn {
-		width: 50px;
-		height: 50px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: var(--bg-card);
-		border: 1px solid var(--border-color);
-		border-radius: 50%;
-		font-size: 1.2rem;
-		transition: all 0.3s ease;
-	}
+  .hero-name {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 126px;
+    line-height: 0.92;
+    letter-spacing: 0;
+    color: var(--fg);
+    white-space: nowrap;
+  }
 
-	.social-btn:hover {
-		background: var(--accent-purple);
-		border-color: var(--accent-purple);
-		transform: translateY(-5px);
-	}
+  .hero-name-accent {
+    color: var(--accent);
+  }
 
-	.hero-right {
-		display: flex;
-		flex-direction: column;
-		gap: 2rem;
-	}
+  .hero-roles {
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--fg-dim);
+  }
 
-	.avatar-container {
-		position: relative;
-		display: flex;
-		justify-content: center;
-	}
+  .hero-roles-prefix {
+    color: var(--fg-mute);
+  }
 
-	.avatar-glow {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 120%;
-		height: 120%;
-		background: radial-gradient(circle, rgba(168, 85, 247, 0.3), transparent 70%);
-		border-radius: 50%;
-		animation: pulse 3s ease-in-out infinite;
-	}
+  .hero-roles-value {
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+  }
 
-	@keyframes pulse {
-		0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-		50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
-	}
+  .hero-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 28px;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    margin-left: 4px;
+    animation: blink 1s steps(2) infinite;
+  }
 
-	.avatar {
-		position: relative;
-		z-index: 1;
-		max-width: 400px;
-		width: 100%;
-		height: auto;
-		image-rendering: pixelated;
-		filter: drop-shadow(0 10px 30px rgba(168, 85, 247, 0.4));
-	}
+  .hero-summary {
+    margin-top: 28px;
+    max-width: 640px;
+    font-family: var(--sans);
+    font-size: 20px;
+    color: var(--fg-dim);
+    line-height: 1.5;
+    text-wrap: balance;
+  }
 
-	.description-box {
-		background: var(--bg-card);
-		border: 1px solid var(--border-color);
-		border-radius: 1rem;
-		padding: 2rem;
-		border-left: 4px solid var(--accent-purple);
-	}
+  .hero-summary :global(.hero-summary-highlight) {
+    color: var(--accent);
+    font-weight: 600;
+  }
 
-	.description-box p {
-		color: var(--text-secondary);
-		line-height: 1.8;
-		margin-bottom: 1.5rem;
-	}
+  .hero-ctas {
+    margin-top: 40px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
 
-	.cta-btn {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 1rem 2rem;
-		background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
-		border-radius: 0.5rem;
-		font-weight: 600;
-		color: white;
-		transition: all 0.3s ease;
-	}
+  .hero-cta-prefix {
+    color: var(--fg-mute);
+  }
 
-	.cta-btn:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
-	}
+  @media (max-width: 768px) {
+    .hero {
+      padding: 120px 20px 60px;
+    }
 
-	@media (max-width: 968px) {
-		.hero-grid {
-			grid-template-columns: 1fr;
-			text-align: center;
-		}
+    .hero-name {
+      white-space: normal;
+    }
 
-		.hero-title {
-			font-size: 3rem;
-		}
+    .hero-roles {
+      font-size: 20px;
+    }
 
-		.role-list {
-			align-items: center;
-		}
-
-		.social-links {
-			justify-content: center;
-		}
-
-		.avatar {
-			max-width: 300px;
-		}
-	}
+    .hero-cursor {
+      height: 20px;
+    }
+  }
 </style>
+
+<script define:vars={{ roles: BIO.roles.map(r => r.title) }}>
+  const el = document.getElementById('typing-text');
+  if (el) {
+    let idx = 0;
+    let text = '';
+    let phase = 'typing';
+
+    function tick() {
+      const current = roles[idx];
+
+      if (phase === 'typing') {
+        if (text.length < current.length) {
+          text = current.slice(0, text.length + 1);
+          el.textContent = text;
+          setTimeout(tick, 55);
+        } else {
+          phase = 'hold';
+          setTimeout(tick, 1400);
+        }
+      } else if (phase === 'hold') {
+        phase = 'deleting';
+        setTimeout(tick, 1200);
+      } else if (phase === 'deleting') {
+        if (text.length > 0) {
+          text = current.slice(0, text.length - 1);
+          el.textContent = text;
+          setTimeout(tick, 28);
+        } else {
+          idx = (idx + 1) % roles.length;
+          phase = 'typing';
+          setTimeout(tick, 200);
+        }
+      }
+    }
+
+    setTimeout(tick, 600);
+  }
+</script>

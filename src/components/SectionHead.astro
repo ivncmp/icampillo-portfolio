@@ -1,0 +1,86 @@
+---
+import I18n from './I18n.astro';
+
+interface Props {
+  cmd: string;
+  title: string;
+  titleEn?: string;
+  kicker?: string;
+  kickerEn?: string;
+  align?: 'left' | 'center';
+}
+
+const { cmd, title, titleEn, kicker, kickerEn, align = 'left' } = Astro.props;
+---
+
+<div class="section-head" data-reveal style={align === 'center' ? 'text-align: center' : ''}>
+  <div class="section-head-cmd">
+    <span class="section-head-cmd-dollar">$</span> {cmd}
+  </div>
+  <h2 class="section-head-title">
+    {titleEn ? <I18n es={title} en={titleEn} /> : <Fragment set:html={title} />}
+  </h2>
+  {kicker && (
+    <p
+      class="section-head-kicker"
+      style={align === 'center' ? 'margin-left: auto; margin-right: auto' : ''}
+    >
+      {kickerEn ? <I18n es={kicker} en={kickerEn} /> : kicker}
+    </p>
+  )}
+</div>
+
+<style>
+  .section-head {
+    margin-bottom: 48px;
+  }
+
+  .section-head-cmd {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 1px solid rgba(200, 255, 0, 0.3);
+    border-radius: 4px;
+    background: rgba(200, 255, 0, 0.05);
+  }
+
+  .section-head-cmd-dollar {
+    color: var(--fg-dim);
+  }
+
+  .section-head-title {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 72px;
+    color: var(--fg);
+    letter-spacing: 0;
+    line-height: 1.05;
+    margin-top: 20px;
+    text-wrap: balance;
+  }
+
+  .section-head-title :global(.accent) {
+    color: var(--accent);
+  }
+
+  .section-head-kicker {
+    font-family: var(--sans);
+    font-size: 18px;
+    color: var(--fg-dim);
+    margin-top: 14px;
+    max-width: 620px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .section-head-title {
+      font-size: clamp(36px, 8vw, 72px);
+    }
+  }
+</style>

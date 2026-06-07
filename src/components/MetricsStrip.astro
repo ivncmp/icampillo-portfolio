@@ -1,0 +1,312 @@
+---
+import { BIO } from '../data/index';
+import SectionHead from './SectionHead.astro';
+
+const metrics = BIO.metrics;
+---
+
+<section class="metrics-section section-bg" style="background-image: url('/bg/madrid.png')">
+  <div class="metrics-section-inner">
+    <SectionHead
+      cmd="cat ./bio --stats"
+      title='Dos décadas <span class="accent">ejecutando</span>.'
+      titleEn='Two decades of <span class="accent">execution</span>.'
+      kicker="12 años en producción. 40+ productos, 8 equipos, 20+ stacks. Los números son el subproducto, no el objetivo."
+      kickerEn="12 years in production. 40+ products, 8 teams, 20+ stacks. The numbers are the byproduct, not the goal."
+    />
+
+    <div class="metrics-panel" data-reveal="scale">
+      <!-- Header bar -->
+      <div class="metrics-header">
+        <span class="metrics-traffic">
+          <span class="metrics-dot metrics-dot-red" />
+          <span class="metrics-dot metrics-dot-yellow" />
+          <span class="metrics-dot metrics-dot-green" />
+        </span>
+        <span class="metrics-header-path">~/portfolio</span>
+        <span class="metrics-header-sep">—</span>
+        <span>./stats --summary --live</span>
+        <span class="metrics-header-live">
+          <span class="metrics-live-dot" />
+          <span class="metrics-live-text">live</span>
+        </span>
+      </div>
+
+      <!-- Metrics grid -->
+      <div class="metrics-grid">
+        {metrics.map((m, i) => (
+          <div class="metric-cell" data-target={m.target} data-suffix={m.suffix}>
+            <div class="metric-cmd">
+              <span class="metric-cmd-dollar">$</span>
+              <span>{m.cmd}</span>
+            </div>
+
+            <div class="metric-number">
+              <span class="metric-value">0</span>
+              <span class="metric-suffix">{m.suffix}</span>
+            </div>
+
+            <div class="metric-label">{m.label}</div>
+
+            <div class="metric-tag">▸ {m.tag}</div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Status bar -->
+      <div class="metrics-status">
+        <span>● main</span>
+        <span>✓ all green</span>
+        <span>42ms</span>
+        <span class="metrics-status-right">updated 2026-04 · open to projects Q2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .metrics-section {
+    padding: 80px 32px;
+  }
+
+  .metrics-section::before {
+    background: linear-gradient(
+      to right,
+      rgba(10, 10, 10, 0.99) 10%,
+      rgba(10, 10, 10, 0.90) 50%,
+      rgba(10, 10, 10, 0.99) 90%
+    );
+  }
+
+  .metrics-section-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .metrics-panel {
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, rgba(20, 20, 20, 0.9), rgba(13, 17, 23, 0.95));
+    backdrop-filter: blur(14px);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .metrics-header {
+    padding: 10px 18px;
+    background: var(--bg-panel-2);
+    border-bottom: 1px solid var(--border-2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+  }
+
+  .metrics-traffic {
+    display: flex;
+    gap: 6px;
+  }
+
+  .metrics-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+  }
+
+  .metrics-dot-red { background: #ff5f57; }
+  .metrics-dot-yellow { background: #febc2e; }
+  .metrics-dot-green { background: #28c840; }
+
+  .metrics-header-path {
+    color: var(--fg-dim);
+  }
+
+  .metrics-header-sep {
+    color: var(--fg-mute);
+  }
+
+  .metrics-header-live {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .metrics-live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--accent-2);
+    box-shadow: 0 0 8px var(--accent-2);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+
+  .metrics-live-text {
+    color: var(--accent-2);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .metric-cell {
+    padding: 28px;
+    border-left: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .metric-cell:first-child {
+    border-left: none;
+  }
+
+  .metric-cmd {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .metric-cmd-dollar {
+    color: var(--accent-2);
+  }
+
+  .metric-number {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+
+  .metric-value {
+    font-family: var(--display);
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -2px;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(200, 255, 0, 0.2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metric-suffix {
+    font-family: var(--display);
+    font-size: 48px;
+    font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .metric-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    margin-top: 14px;
+    border-top: 1px dashed var(--border);
+    padding-top: 10px;
+  }
+
+  .metrics-status {
+    background: var(--accent);
+    color: #000;
+    padding: 4px 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-weight: 500;
+  }
+
+  .metrics-status-right {
+    margin-left: auto;
+  }
+
+  @media (max-width: 900px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .metric-cell:nth-child(3) {
+      border-left: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .metrics-section {
+      padding: 60px 20px;
+    }
+
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-cell {
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .metric-cell:first-child {
+      border-top: none;
+    }
+
+    .metric-value {
+      font-size: 56px;
+    }
+
+    .metric-suffix {
+      font-size: 36px;
+    }
+  }
+</style>
+
+<script>
+  const cells = document.querySelectorAll<HTMLElement>('.metric-cell');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const cell = entry.target as HTMLElement;
+        if (cell.dataset.counted) return;
+        cell.dataset.counted = 'true';
+
+        const target = parseInt(cell.dataset.target || '0', 10);
+        const valueEl = cell.querySelector('.metric-value');
+        if (!valueEl) return;
+
+        const duration = 1400;
+        const start = performance.now();
+
+        function step(now: number) {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          valueEl!.textContent = String(Math.round(target * eased));
+          if (t < 1) requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+        observer.unobserve(cell);
+      });
+    },
+    { threshold: 0.3 },
+  );
+
+  cells.forEach((cell) => observer.observe(cell));
+</script>

@@ -1,0 +1,197 @@
+---
+import { SERVICES } from '../data/index';
+import SectionHead from './SectionHead.astro';
+import I18n from './I18n.astro';
+---
+
+<section id="services" class="services">
+  <div class="services-inner">
+    <SectionHead
+      cmd="ls ./services"
+      title='Lo que <span class="accent">hago</span>, y cómo lo <span class="accent">hago</span>.'
+      titleEn='What I <span class="accent">do</span>, and how I <span class="accent">do</span> it.'
+      kicker="No solo desarrollo. Diseño arquitectura, lidero equipos y ejecuto. De cero a producción, extremo a extremo."
+      kickerEn="I don't just develop. I design architecture, lead teams, and execute. From zero to production, end to end."
+    />
+
+    <div class="services-grid" data-stagger>
+      {SERVICES.map((service, i) => (
+        <div class="service-card">
+          <div class="service-index">0{i + 1}</div>
+
+          <div class="service-icon">
+            {service.icon}
+          </div>
+
+          <div class="service-cmd">
+            <span class="service-cmd-dollar">$</span> {service.cmd}
+          </div>
+
+          <h3 class="service-title">{service.title}</h3>
+
+          <p class="service-desc"><I18n es={service.desc} en={service.descEn} /></p>
+
+          <div class="service-tags">
+            {service.tags.map((tag) => (
+              <span class="service-tag">{tag}</span>
+            ))}
+          </div>
+
+          <div class="service-line" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 120px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .services::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -100px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(210,168,255,0.06), transparent 70%);
+    pointer-events: none;
+    animation: glow-pulse 8s ease-in-out infinite;
+  }
+
+  .services-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .service-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 180ms ease, transform 180ms ease;
+  }
+
+  .service-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .service-index {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+  }
+
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-2);
+    border-radius: 8px;
+    color: var(--fg);
+    background: rgba(255, 255, 255, 0.02);
+    font-size: 20px;
+    margin-bottom: 20px;
+    transition: all 180ms ease;
+  }
+
+  .service-card:hover .service-icon {
+    color: var(--accent);
+    background: rgba(200, 255, 0, 0.06);
+  }
+
+  .service-cmd {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+    margin-bottom: 6px;
+  }
+
+  .service-cmd-dollar {
+    color: var(--accent);
+  }
+
+  .service-title {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+
+  .service-desc {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--fg-dim);
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .service-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    border: 1px solid var(--border-2);
+    color: var(--fg-dim);
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .service-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--accent);
+    width: 0;
+    transition: width 300ms ease;
+  }
+
+  .service-card:hover .service-line {
+    width: 100%;
+  }
+
+  @media (max-width: 900px) {
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .services {
+      padding: 80px 20px;
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

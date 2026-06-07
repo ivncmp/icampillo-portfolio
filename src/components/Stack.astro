@@ -1,0 +1,511 @@
+---
+import { STACK } from '../data/index';
+import SectionHead from './SectionHead.astro';
+import I18n from './I18n.astro';
+
+const categories = Object.entries(STACK);
+const totalTools = Object.values(STACK).flat().length;
+
+const TECH_META: Record<string, { slug?: string; mono?: string; color: string; desc: string; label?: string }> = {
+  'TypeScript': { slug: 'typescript', color: '#3178C6', desc: 'type-safe js' },
+  'Python':     { slug: 'python',     color: '#3776AB', desc: 'scripts · ai · data' },
+  'Solidity':   { slug: 'solidity',   color: '#8C8C8C', desc: 'smart contracts' },
+  'Rust':       { slug: 'rust',       color: '#CE422B', desc: 'fast & safe' },
+  'Go':         { slug: 'go',         color: '#00ADD8', desc: 'services · cli' },
+  'AWS':         { slug: 'amazonwebservices', color: '#FF9900', desc: 'cloud default' },
+  'GCP':         { slug: 'googlecloud',       color: '#4285F4', desc: 'gke · bigquery' },
+  'Terraform':   { slug: 'terraform',         color: '#7B42BC', desc: 'iac' },
+  'Kubernetes':  { slug: 'kubernetes',        color: '#326CE5', desc: 'orchestration' },
+  'Docker':      { slug: 'docker',            color: '#2496ED', desc: 'containers' },
+  'Pulumi':      { slug: 'pulumi',            color: '#8A3391', desc: 'iac in code' },
+  'PyTorch':      { slug: 'pytorch',      color: '#EE4C2C', desc: 'models · training' },
+  'LangGraph':    { slug: 'langchain',    color: '#1C3C3C', mono: 'LG', desc: 'agents' },
+  'LlamaIndex':   { mono: 'Li',           color: '#6B46FF', desc: 'rag pipelines' },
+  'Hugging Face': { slug: 'huggingface',  color: '#FFD21E', desc: 'models zoo' },
+  'pgvector':     { slug: 'postgresql',   color: '#4169E1', label: 'pgvector', desc: 'vector search' },
+  'Modal':        { mono: 'Mo',           color: '#7FEE64', desc: 'gpu infra' },
+  'Foundry': { mono: 'Fn', color: '#FF5400', desc: 'testing · deploy' },
+  'Hardhat': { mono: 'Hh', color: '#FFF100', desc: 'dev env' },
+  'viem':    { mono: 'vi', color: '#FFC517', desc: 'eth client' },
+  'wagmi':   { mono: 'wa', color: '#1F6FEB', desc: 'react hooks' },
+  'Ethers':  { mono: 'Et', color: '#627EEA', desc: 'legacy lib' },
+  'Next.js':        { slug: 'nextdotjs',     color: '#FFFFFF', desc: 'app router · rsc' },
+  'React':          { slug: 'react',         color: '#61DAFB', desc: 'ui lib' },
+  'Tailwind':       { slug: 'tailwindcss',   color: '#06B6D4', desc: 'utility css' },
+  'shadcn':         { mono: 'sh',            color: '#FFFFFF', desc: 'primitives' },
+  'Framer Motion':  { slug: 'framer',        color: '#0055FF', desc: 'animation' },
+  'Node.js':  { slug: 'nodedotjs',  color: '#5FA04E', desc: 'runtime' },
+  'FastAPI':  { slug: 'fastapi',    color: '#009688', desc: 'python api' },
+  'Postgres': { slug: 'postgresql', color: '#4169E1', desc: 'sql · truth' },
+  'Redis':    { slug: 'redis',      color: '#FF4438', desc: 'cache · queues' },
+  'Kafka':    { slug: 'apachekafka',color: '#888888', desc: 'streams' },
+  'tRPC':     { slug: 'trpc',       color: '#398CCB', desc: 'typed rpc' },
+  'Datadog':        { slug: 'datadog',       color: '#632CA6', desc: 'metrics · apm' },
+  'Grafana':        { slug: 'grafana',       color: '#F46800', desc: 'dashboards' },
+  'OpenTelemetry':  { slug: 'opentelemetry', color: '#F5A800', desc: 'traces' },
+  'Sentry':         { slug: 'sentry',        color: '#A57DFF', desc: 'errors' },
+};
+
+const CATEGORY_ACCENTS: Record<string, string> = {
+  'Languages':     '#C8FF00',
+  'Cloud & Infra': '#79C0FF',
+  'AI / ML':       '#D2A8FF',
+  'Web3':          '#FFA657',
+  'Frontend':      '#7EE787',
+  'Backend':       '#FF7B72',
+  'Observability': '#FFC957',
+};
+
+const stats = [
+  { k: 'tools', v: totalTools, suffix: '' },
+  { k: 'domains', v: categories.length, suffix: '' },
+  { k: 'years', v: 12, suffix: '+' },
+  { k: 'boring tech', v: 100, suffix: '%' },
+];
+---
+
+<section id="stack" class="stack-section">
+  <div class="stack-inner">
+    <div class="stack-grid">
+      <!-- Sticky sidebar -->
+      <div class="stack-sidebar">
+        <SectionHead
+          cmd="cat stack.json"
+          title='Mi <span class="accent">stack</span>.'
+          titleEn='My <span class="accent">stack</span>.'
+          kicker="Herramientas que uso a diario. El stack evoluciona, la disciplina no: código legible, arquitectura simple, observabilidad desde el día uno."
+          kickerEn="Tools I use daily. The stack evolves, the discipline doesn't: readable code, simple architecture, observability from day one."
+        />
+
+        <div class="stack-stats" data-stagger>
+          {stats.map((s) => (
+            <div class="stack-stat" data-count-target={s.v} data-count-suffix={s.suffix}>
+              <div class="stack-stat-key">{s.k}</div>
+              <div class="stack-stat-val">
+                <span class="stack-stat-num">0</span><span class="stack-stat-suffix">{s.suffix}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="stack-philosophy">
+          <div class="stack-philosophy-cmd">
+            <span class="stack-philosophy-dollar">$</span> <span class="stack-philosophy-echo">echo $PHILOSOPHY</span>
+          </div>
+          <div class="stack-philosophy-quote">"boring tech wins"</div>
+          <div class="stack-philosophy-note"><I18n es="lo interesante es el producto, no el stack." en="the interesting part is the product, not the stack." /></div>
+        </div>
+
+        <div class="stack-hint">
+          <span class="stack-hint-icon">▸</span>
+          <I18n es="hover para revelar el color de marca" en="hover to reveal the brand color" />
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div class="stack-categories" data-stagger>
+        {categories.map(([cat, items], i) => {
+          const accent = CATEGORY_ACCENTS[cat] || 'var(--accent)';
+          return (
+            <div class="stack-category">
+              <div class="stack-category-glow" style={`background: radial-gradient(circle, ${accent}22 0%, transparent 65%)`} />
+              <div class="stack-category-line" style={`background: linear-gradient(90deg, ${accent}, ${accent}00 40%)`} />
+
+              <div class="stack-category-header">
+                <div class="stack-category-icon" style={`background: ${accent}14; border-color: ${accent}55; color: ${accent}`}>
+                  <span>0{i + 1}</span>
+                </div>
+                <div class="stack-category-info">
+                  <div class="stack-category-counter">0{i + 1} / 0{categories.length} · category</div>
+                  <h3 class="stack-category-name">{cat}</h3>
+                </div>
+                <div class="stack-category-badge">
+                  <span class="stack-category-badge-dot" style={`background: ${accent}; box-shadow: 0 0 6px ${accent}`} />
+                  {items.length} tools
+                </div>
+              </div>
+
+              <div class="stack-tiles">
+                {items.map((name) => {
+                  const meta = TECH_META[name] || { color: accent, desc: '—' };
+                  const brand = meta.color;
+                  const monogram = meta.mono || (name[0] + (name[1] || '').toLowerCase());
+                  const displayName = meta.label || name;
+                  return (
+                    <div
+                      class="tech-tile"
+                      style={`--brand: ${brand}`}
+                    >
+                      <div class="tech-tile-bar" />
+                      <div class="tech-tile-logo">
+                        {meta.slug ? (
+                          <img
+                            src={`https://cdn.simpleicons.org/${meta.slug}/${brand.replace('#','')}`}
+                            alt={name}
+                            width="30"
+                            height="30"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <span class="tech-tile-mono">{monogram}</span>
+                        )}
+                      </div>
+                      <div class="tech-tile-text">
+                        <div class="tech-tile-name">{displayName}</div>
+                        <div class="tech-tile-desc">{meta.desc}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stack-section {
+    padding: 120px 32px;
+    position: relative;
+    overflow: clip;
+    background: var(--bg);
+  }
+
+  .stack-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 60px;
+    align-items: flex-start;
+  }
+
+  .stack-sidebar {
+    position: sticky;
+    top: 100px;
+  }
+
+  .stack-sidebar :global(.section-head-kicker) {
+    font-size: 15px;
+  }
+
+  .stack-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 24px;
+  }
+
+  .stack-stat {
+    background: var(--bg-elev);
+    padding: 16px 14px;
+  }
+
+  .stack-stat-key {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .stack-stat-val {
+    font-family: var(--display);
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1;
+    letter-spacing: -1px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stack-stat-suffix {
+    color: var(--accent);
+    font-size: 24px;
+    margin-left: 1px;
+  }
+
+  .stack-philosophy {
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-2);
+    border-radius: 6px;
+    padding: 14px;
+    color: var(--fg-dim);
+    line-height: 1.7;
+  }
+
+  .stack-philosophy-cmd { margin-bottom: 6px; }
+  .stack-philosophy-dollar { color: var(--accent-2); }
+  .stack-philosophy-echo { color: var(--fg); }
+  .stack-philosophy-quote { color: var(--fg); font-size: 13px; font-style: italic; }
+  .stack-philosophy-note { font-size: 11px; color: var(--fg-mute); margin-top: 8px; }
+
+  .stack-hint {
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .stack-hint-icon { color: var(--accent); }
+
+  /* ── Categories ── */
+  .stack-category {
+    margin-bottom: 28px;
+    position: relative;
+    padding: 22px 24px 24px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .stack-category-glow {
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 200px;
+    height: 200px;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .stack-category-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+  }
+
+  .stack-category-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .stack-category-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    border: 1px solid;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .stack-category-info { flex: 1; }
+
+  .stack-category-counter {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+
+  .stack-category-name {
+    font-family: var(--sans);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--fg);
+    letter-spacing: -0.5px;
+  }
+
+  .stack-category-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--fg-mute);
+    padding: 6px 10px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+  }
+
+  .stack-category-badge-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 999px;
+  }
+
+  .stack-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  /* ── Tech Tile ── */
+  .tech-tile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 200ms ease;
+    cursor: default;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .tech-tile:hover {
+    background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 8%, transparent), color-mix(in srgb, var(--brand) 2%, transparent));
+    border-color: color-mix(in srgb, var(--brand) 40%, transparent);
+  }
+
+  .tech-tile-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--brand);
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .tech-tile:hover .tech-tile-bar { opacity: 1; }
+
+  .tech-tile-logo {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 200ms ease;
+  }
+
+  .tech-tile-logo img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    filter: grayscale(1) brightness(1.3) opacity(0.6);
+    transition: filter 220ms ease;
+  }
+
+  .tech-tile:hover .tech-tile-logo img {
+    filter: none;
+  }
+
+  .tech-tile:hover .tech-tile-logo {
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brand) 50%, transparent));
+  }
+
+  .tech-tile-mono {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1.5px solid var(--border-2);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--fg-dim);
+    transition: all 220ms ease;
+  }
+
+  .tech-tile:hover .tech-tile-mono {
+    border-color: var(--brand);
+    background: color-mix(in srgb, var(--brand) 10%, transparent);
+    color: var(--brand);
+  }
+
+  .tech-tile-text { min-width: 0; flex: 1; }
+
+  .tech-tile-name {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: -0.1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tech-tile-desc {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--fg-mute);
+    letter-spacing: 0.3px;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 180ms ease;
+  }
+
+  .tech-tile:hover .tech-tile-desc { color: var(--brand); }
+
+  @media (max-width: 900px) {
+    .stack-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stack-sidebar {
+      position: static;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .stack-section { padding: 80px 20px; }
+    .stack-tiles { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const statCells = document.querySelectorAll<HTMLElement>('[data-count-target]');
+  const statObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement;
+      if (el.dataset.counted) return;
+      el.dataset.counted = 'true';
+      const target = parseInt(el.dataset.countTarget || '0', 10);
+      const numEl = el.querySelector('.stack-stat-num');
+      if (!numEl) return;
+      const dur = 1200;
+      const start = performance.now();
+      function step(now: number) {
+        const t = Math.min(1, (now - start) / dur);
+        const eased = 1 - Math.pow(1 - t, 3);
+        numEl!.textContent = String(Math.round(target * eased));
+        if (t < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      statObs.unobserve(el);
+    });
+  }, { threshold: 0.3 });
+  statCells.forEach((c) => statObs.observe(c));
+</script>
